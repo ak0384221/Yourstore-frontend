@@ -1,40 +1,44 @@
+import ProductsPcsAdd from "@/atomic-components/addProductsQuanity";
 import TextStyleInItem from "@/atomic-components/textStyleOfItem";
 import Image from "next/image";
 
-export default function ProductDetails() {
+export default function ProductDetails({ item }: { item: any }) {
+  const discountedPrice = (
+    item.price -
+    (item.price * item.discount) / 100
+  ).toFixed(2);
+
   return (
-    <div className="details mt-20 border min-h-[80dvh] flex justify-between">
-      <div className="img relative border w-1/2">
+    <div className="details border border-neutral-400 w-5/6 mt-[5vh] md:mt-[10dvh] p-2 flex flex-col gap-8   mx-auto  justify-center md:flex-row ">
+      <div className="img w-full h-[60dvh]  flex justify-center items-center">
         <Image
-          alt="something"
-          src={"/moneybags/03.jpg"}
+          alt={item?.name}
+          src={item?.images[0]}
           height={200}
           width={200}
-          className="absolute w-full h-full object-cover"
+          className=" w-auto h-full bg-red-500  object-cover"
         />
       </div>
-      <div className="details w-1/2 p-5 space-y-1">
-        <p>pathname</p>
+      <div className="details w-full px-5 space-y-3  ">
+        <p>product ID: {item?._id}</p>
 
-        <TextStyleInItem style="category" text="wallet" />
-        <b>$105</b>
-        <sub>& free shpping</sub>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. In,
-          blanditiis.
-        </p>
+        <TextStyleInItem style="category" text={item?.category} />
+        <div className="border p-2">
+          <sub>Original price </sub>
+          <b className="text-3xl">${item?.price}</b>
+          <br />
+          <b className="text-3xl">{discountedPrice}$</b>
+          <sub>final price </sub>
+        </div>
+
+        <p>{item?.name}</p>
+        <p>{item?.description}</p>
         <div className=" flex gap-3 items-center justify-start">
-          <div className="">
-            <button className="px-4 bg-blue-500">-</button>1
-            <button className="px-4 bg-blue-500">+</button>
-          </div>
-          <div className="">
-            <button className="px-8 bg-blue-500">add to card</button>
-          </div>
+          <ProductsPcsAdd item={item} />
         </div>
         <div className="">
-          <b>free shipping</b>
-          <ul className="">
+          <b className="capitalize text-xl">free shipping on over 50$ order</b>
+          <ul className="list-disc ml-5 ">
             <li>No-Risk Money Back Guarantee!</li>
             <li>No Hassle Refunds</li>
             <li>Secure Payments</li>

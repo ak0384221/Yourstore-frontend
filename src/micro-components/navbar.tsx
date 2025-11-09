@@ -1,62 +1,91 @@
 import Logo from "@/atomic-components/logo";
+import Link from "next/link";
 import { FaUserAlt } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoIosSearch } from "react-icons/io";
-import { MdArrowDropDown, MdOutlineMenu } from "react-icons/md";
+import MobileMenu from "./mobileMenu";
+import { fetchCartItem } from "@/utils/cart/fetchCartItem";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const navbar = [
+    { name: "home", link: "/" },
+    {
+      name: "shop",
+      link: "/",
+      children: [
+        {
+          name: "tshirt",
+          link: "/products/category/tshirt",
+        },
+        {
+          name: "watch",
+          link: "/products/category/watch",
+        },
+        {
+          name: "shoes",
+          link: "/products/category/shoes",
+        },
+        {
+          name: "jewelry",
+          link: "/products/category/jewelry",
+        },
+      ],
+    },
+    { name: "about us", link: "/about" },
+  ];
+  interface Tnavbar {
+    name: string;
+    link: string;
+    children?: { name: string; link: string }[];
+  }
+  const items = await fetchCartItem();
+
   return (
-    <>
-      <nav className="bg-transparent absolute top-5 text-[#484385] font-bold w-full flex justify-between  px-7 h-[10dvh]">
-        <Logo />
-        <div className="mobile  nav 3dot lg:hidden ">
-          <MdOutlineMenu className="text-4xl" />
-        </div>
-        <div className="pc nav hidden lg:block ">
-          <ul className="flex justify-center gap-3">
-            <li>Home</li>
-            <li className=" relative group">
-              shop by category{" "}
-              <span>
-                <MdArrowDropDown className="inline text-xl" />
-              </span>
-              <div className="absolute w-[20dvw] z-100 left-0 top-5 hidden  group-hover:block  ">
-                <ul className="bg-white w-full my-5 capitalize border-t-4 border-[#484385]">
-                  <li className="py-3  px-3 hover:bg-neutral-200 transition-colors">
-                    Accesories
-                  </li>
-                  <li className="py-3  px-3 hover:bg-neutral-200 transition-colors">
-                    cards
-                  </li>
-                  <li className="py-3  px-3 hover:bg-neutral-200 transition-colors">
-                    clothing
-                  </li>
-                  <li className="py-3  px-3 hover:bg-neutral-200 transition-colors">
-                    handbags
-                  </li>
-                  <li className="py-3  px-3 hover:bg-neutral-200 transition-colors">
-                    office and sanctionary
-                  </li>
-                  <li className="py-3  px-3 hover:bg-neutral-200 transition-colors">
-                    wallets
-                  </li>
-                  <li className="py-3  px-3 hover:bg-neutral-200 transition-colors">
-                    kids
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>special offer</li>
-            <li>about us</li>
-            <li>contact us</li>
-          </ul>
-        </div>
-        <div className="cart  justify-center gap-4 hidden lg:flex ">
-          <IoIosSearch className="text-xl" />
-          <FiShoppingCart className="text-xl" />
-          <FaUserAlt className="text-xl" />
-        </div>
+    <div className="navbar fixed bg-white z-100 top-0 left-0 w-full flex justify-between items-center py-4 px-6 md:justify-evenly mb-[10dvh]">
+      <Logo />
+      <nav className="bg-transparent hidden md:flex   text-[#272727] text-sm w-max px-8 ">
+        <ul className="flex  gap-3 ">
+          {navbar.map((nav: Tnavbar) => {
+            return (
+              <li className="group relative capitalize" key={nav.name}>
+                <Link href={nav.link}>{nav.name}</Link>
+
+                {nav.children && nav.children.length > 0 && (
+                  <ul className="hidden group-hover:block bg-white text-black  absolute  z-100 w-[15dvw]  border-t-2   ">
+                    <div className="  w-full ">
+                      {nav.children.map((nav) => (
+                        <Link
+                          key={nav.name}
+                          className="bg-blue-300 "
+                          href={nav.link}
+                        >
+                          <li className="font-light  py-2 px-4 w-full h-full  hover:bg-neutral-200">
+                            {nav.name}
+                          </li>
+                        </Link>
+                      ))}
+                    </div>
+                  </ul>
+                )}
+              </li>
+            );
+          })}
+        </ul>
       </nav>
-    </>
+      <div className="cart flex gap-4 ">
+        <IoIosSearch className="text-xl " />
+        <Link href={"/cart"} className=" relative">
+          <FiShoppingCart className=" text-xl" />
+          <div className="absolute -top-5 -right-5 size-6 bg-[#fff347] text-sm flex justify-center items-center rounded-full">
+            {items?.length || 0}
+          </div>
+        </Link>
+
+        <Link href={"/"} className="">
+          <FaUserAlt className=" text-xl text-neutral-700" />
+        </Link>
+      </div>
+      <MobileMenu />
+    </div>
   );
 }

@@ -3,13 +3,11 @@
 import { useState } from "react";
 
 export default function ConfirmOrder({ items }: any) {
-  console.log(items);
   const [orderNotify, setOrderNotify] = useState("Confirm Order");
 
   const newOrders = items?.map((item: any) => {
     return { productId: item?.productId?._id, quantity: item?.quantity };
   });
-  console.log("--------------new", newOrders);
 
   async function handleOrders() {
     fetch("http://localhost:5000/api/order", {
@@ -21,11 +19,9 @@ export default function ConfirmOrder({ items }: any) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("order placed:", data);
         setOrderNotify(() => "Order succeed");
       })
       .catch((err) => {
-        console.log("Order failed:", err);
         setOrderNotify(() => "Order failed");
       });
   }

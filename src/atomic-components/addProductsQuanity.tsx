@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { IoAddCircle } from "react-icons/io5";
 import { BiSolidMinusCircle } from "react-icons/bi";
+import { TProduct } from "@/types/product";
 
-export default function ProductsPcsAdd({ item }: any) {
+export default function ProductsPcsAdd({ item }: { item: TProduct }) {
   const [productsQuantity, setProductQuantity] = useState(1);
   const [cartMessage, setCartMessage] = useState("Add to cart");
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -26,10 +27,8 @@ export default function ProductsPcsAdd({ item }: any) {
         body: JSON.stringify(cartObj),
       });
       const data = await res.json();
-      console.log("Cart saved:", data);
       setCartMessage("Item Added");
     } catch (err) {
-      console.log("Error saving cart:", err);
       setCartMessage("Failed to add");
     }
   }
@@ -51,7 +50,7 @@ export default function ProductsPcsAdd({ item }: any) {
   }
 
   return (
-    <div className="w-full md:w-1/2 flex flex-col gap-6 mt-8 text-white">
+    <div className="w-full md:w-1/2 flex flex-col gap-6 mt-8 text-white border-3 p-5">
       {/* Variants Selector */}
       {item.variants && item.variants.length > 0 && (
         <div className="flex flex-col gap-4">

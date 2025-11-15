@@ -34,17 +34,17 @@ export default function MobileMenu() {
   ];
 
   const liStyle =
-    "hover:bg-neutral-800  h-full flex justify-center items-center cursor-pointer py-2 ";
+    "hover:bg-pink-600 hover:text-white transition-colors h-full flex justify-center items-center cursor-pointer py-2 ";
   return (
     <div className="mobile  h-max nav 3dot    ">
       <MdOutlineMenu
         onClick={() => setIsOpen(!isOpen)}
-        className="text-4xl cursor-pointer text-white"
+        className="text-4xl  cursor-pointer hover:text-gray-400 text-white transition-colors"
       />
       {isOpen && (
         <div className="mobile option absolute right-5 top-[10vh] w-[90dvw] md:w-[40dvw] bg-[#1c1f24] h-max text-white z-50">
           <ul className="h-full   grid grid-cols-2 gap-2 ">
-            {mobileNav.map((nav) => (
+            {mobileNav.map((nav, ind) => (
               <Link
                 onClick={() => setIsOpen(false)}
                 className={`${liStyle}`}

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Regalo | Send A Gift",
-  description: "Send a gift",
+  title: "Yourstore | buy comething you love",
+  description: "yourstore is a n ecommerce shop",
 };
 
 export default function RootLayout({

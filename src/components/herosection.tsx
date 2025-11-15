@@ -61,7 +61,7 @@ export default function HeroSection() {
   }, [currentSlide]);
 
   return (
-    <section className="relative md:h-[85dvh] h-[80dvh] w-full overflow-hidden bg-black text-white ">
+    <section className="relative md:h-[85dvh] h-[80dvh] w-full overflow-hidden bg-black text-white mt-[theme(--marginTop)] md:mt-[theme(--marginTopLG)]  ">
       {/* Slider container */}
       <div
         ref={sliderRef}
@@ -80,7 +80,7 @@ export default function HeroSection() {
               className="object-cover opacity-90"
             />
             {/* Text Overlay */}
-            <div className="relative z-10 ml-[10dvh] mb-[10dvh] max-w-lg space-y-5">
+            <div className="relative z-10 md:ml-[10dvh] md:mb-[10dvh] w-5/6 md:w-3/5  space-y-2 ml-5 ">
               <h1 className="text-5xl md:text-6xl font-bold leading-tight">
                 {slide.title}
               </h1>

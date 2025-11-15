@@ -4,17 +4,10 @@ import { fetchlatestArrival } from "@/utils/product/queries/fetchLatestArrival";
 import Link from "next/link";
 
 export default async function LatestPage() {
-  let latestData = [];
-  try {
-    latestData = await fetchlatestArrival();
-  } catch (err) {
-    console.error("Failed to fetch latest arrivals:", err);
-    latestData = []; // fallback value
-  }
   return (
     <>
       <h1>latestPage</h1>
-      {latestData?.length > 0 && (
+      {/* {latestData?.length > 0 && (
         <>
           <div className="newArrival my-5 ">
             <CategoryTitle title="New Arrival" />
@@ -31,7 +24,7 @@ export default async function LatestPage() {
             </div>
           </div>
         </>
-      )}
+      )} */}
     </>
   );
 }

@@ -1,17 +1,17 @@
 import ProductsPcsAdd from "@/atomic-components/addProductsQuanity";
 import TextStyleInItem from "@/atomic-components/textStyleOfItem";
+import { TProduct } from "@/types/product";
+import {
+  finalAmount,
+  totalDiscount,
+} from "@/utils/product/mutations/pricingFunctions";
 import Image from "next/image";
 
-export default function ProductDetails({ item }: { item: any }) {
-  const discountedPrice = (
-    item.basePrice -
-    (item.basePrice * item.discountPercent) / 100
-  ).toFixed(2);
-
+export default function ProductDetails({ item }: { item: TProduct }) {
   return (
     <div
-      className="max-w-[1200px] mx-auto mt-[15dvh] md:mt-[20dvh] p-4 md:p-8 flex 
-    flex-col md:flex-row gap-8 bg-[#131010] text-white"
+      className="max-w-[1200px] mx-auto mt-[20dvh] md:mt-[20dvh] p-4 md:p-8 flex
+    flex-col md:flex-row gap-8 bg-[#131010] text-white "
     >
       {/* ---------- Product Images ---------- */}
       <div className="flex-1 flex flex-col md:flex-row gap-4">
@@ -31,7 +31,7 @@ export default function ProductDetails({ item }: { item: any }) {
         {/* Optional: Thumbnails */}
         {item?.images?.length > 1 && (
           <div className="hidden md:flex flex-col gap-2 w-1/6">
-            {item.images.map((img: any, index: number) => (
+            {item.images.map((img, index: number) => (
               <div
                 key={index}
                 className="h-16 w-16 border rounded-lg cursor-pointer hover:border-blue-500 overflow-hidden"
@@ -65,15 +65,18 @@ export default function ProductDetails({ item }: { item: any }) {
 
         {/* Pricing */}
         <div className="flex items-center gap-3">
-          {item.discountPercent > 0 && (
-            <span className=" line-through text-lg">${item.basePrice}</span>
-          )}
+          <span className=" line-through text-lg">${item.basePrice}</span>
+
           <span className="text-2xl md:text-3xl font-bold text-green-600">
-            ${discountedPrice}
+            $
+            {finalAmount(
+              item.basePrice,
+              totalDiscount(item.discountPercent, item.salePercent)
+            )}
           </span>
           {item.discountPercent > 0 && (
             <span className="text-sm text-red-500 font-semibold">
-              ({item.discountPercent}% off)
+              ({totalDiscount(item.discountPercent, item.salePercent)}% off)
             </span>
           )}
         </div>
@@ -86,17 +89,18 @@ export default function ProductDetails({ item }: { item: any }) {
         {/* Variants / Options */}
         {item.variants && item.variants.length > 0 && (
           <div className="flex flex-col gap-3">
-            {item.variants.map((variant: any, index: number) => (
+            Available options
+            {item.variants.map((variant, index: number) => (
               <div key={index} className="flex items-center gap-3">
                 <span className="font-medium capitalize">{variant.size}:</span>
                 <div className="flex gap-2">
-                  {variant.colors.map((color: any, idx: number) => (
+                  {variant.colors.map((color, idx: number) => (
                     <span
                       key={idx}
-                      className="w-6 h-6 rounded-full border cursor-pointer"
-                      style={{ backgroundColor: color.colorName }}
                       title={`${color.colorName} (${color.stock} in stock)`}
-                    />
+                    >
+                      {color.colorName} {`${color.stock} in stock`}
+                    </span>
                   ))}
                 </div>
               </div>

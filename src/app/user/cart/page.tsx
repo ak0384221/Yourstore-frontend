@@ -1,127 +1,90 @@
-import ConfirmOrder from "@/atomic-components/confirmOrderBtn";
 import RemoveCartItem from "@/atomic-components/removeFromCartButton";
-import EmptyCart from "@/error/noCartFound";
 import { fetchCartItem } from "@/utils/cart/fetchCartItem";
-import { finalPrice, subTotal, totalPrice } from "@/utils/cart/paymentcal";
 import Image from "next/image";
-
+import Link from "next/link";
+import { TCartResponse } from "@/types/cartItem";
+import {
+  finalAmount,
+  totalDiscount,
+} from "@/utils/product/mutations/pricingFunctions";
 export default async function Cart() {
-  let items = [];
-  try {
-    items = await fetchCartItem();
-  } catch (err) {
-    console.log(err);
-    items = [];
-  }
-  console.log("frontend", items);
-
-  const totalPrice = items.reduce((acc, item) => {
-    const discountedPrice =
-      item.product.discountPercent > 0
-        ? item.product.basePrice -
-          (item.product.basePrice * item.product.discountPercent) / 100
-        : item.product.basePrice;
-    return acc + discountedPrice * item.quantity;
-  }, 0);
-
-  function calculateFinalPrice(
-    basePrice,
-    discountPercent,
-    salePercent,
-    quantity = 1
-  ) {
-    console.log(basePrice, discountPercent, salePercent, quantity);
-    const discountedPrice = basePrice - (basePrice * discountPercent) / 100;
-
-    const finalSinglePrice =
-      discountedPrice - (discountedPrice * salePercent) / 100;
-
-    const total = finalSinglePrice * quantity;
-
-    return Number(total.toFixed(2));
-  }
+  const response: TCartResponse = await fetchCartItem();
+  const { data: items } = response;
 
   return (
     <>
       <section className="min-h-screen w-full bg-[#0b0b0b] text-gray-200 py-12 px-6 md:px-16 flex flex-col md:flex-row gap-8">
         <div className="flex-1 flex flex-col gap-6">
-          <h1 className="text-3xl font-semibold mb-4 border-b border-gray-700 pb-2">
+          <h1 className="text-3xl font-semibold mb-4  border-b border-gray-700 pb-2">
             Your Cart
           </h1>
 
-          {items.length === 0 ? (
-            <p className="text-gray-400">Your cart is empty 🛒</p>
-          ) : (
-            items.map((item) => {
-              const discountedPrice =
-                item.product.discount > 0
-                  ? item.product.price -
-                    (item.product.price * item.product.discount) / 100
-                  : item.product.price;
-
-              return (
-                <div
-                  key={item._id}
-                  className="flex flex-col relative md:flex-row items-center justify-between bg-[#1a1a1a] rounded-xl p-4 shadow-md border border-gray-800"
-                >
-                  <RemoveCartItem id={item._id} />
-                  <div className="flex items-center gap-5 w-full md:w-auto ">
-                    <div className="relative w-28 h-28 rounded-md overflow-hidden">
-                      <Image
-                        src={item.product.images[0].url || "/placeholder.png"}
-                        alt={item.product.name}
-                        fill
-                        className="object-cover bg-[#e3f1f5]"
-                      />
-                    </div>
-
-                    <div className="flex flex-col gap-1">
-                      <h2 className="text-lg font-semibold">
-                        {item.product.name}
-                      </h2>
-                      <p className="text-sm text-gray-400">
-                        ProductID: {item.product.productId}
-                      </p>
-
-                      <p className="text-sm">
-                        Size:{" "}
-                        <span className="text-gray-300 font-medium">
-                          {item.size || "—"}
-                        </span>
-                      </p>
-                      <p className="text-sm">
-                        Color:{" "}
-                        <span className="inline-block  ml-1">{item.color}</span>
-                      </p>
-                      <p className="text-sm">Qty: {item.quantity}</p>
-                    </div>
+          {items.map((item) => {
+            return (
+              <div
+                key={item._id}
+                className="flex flex-col relative md:flex-row items-center justify-between bg-[#1a1a1a] rounded-xl p-4 shadow-md border border-gray-800"
+              >
+                <RemoveCartItem id={item._id} />
+                <div className="flex items-center gap-5 w-full md:w-auto ">
+                  <div className="relative w-28 h-28 rounded-md overflow-hidden">
+                    <Image
+                      src={item.product.images[0].url || "/placeholder.png"}
+                      alt={item.product.name}
+                      fill
+                      className="object-cover bg-[#e3f1f5]"
+                    />
                   </div>
 
-                  <div className="mt-3 md:mt-0 text-right  ">
-                    <p className="text-sm text-gray-400 line-through">
-                      ${item.product.basePrice}
+                  <div className="flex flex-col gap-1">
+                    <h2 className="text-lg font-semibold">
+                      {item.product.name}
+                    </h2>
+                    <p className="text-sm text-gray-400">
+                      ProductID: {item.product.productId}
                     </p>
 
-                    <p className="text-lg font-bold text-white">
-                      $
-                      {calculateFinalPrice(
-                        item.product.basePrice,
-                        item.product.discountPercent,
-                        item.product.salePercent
-                      )}{" "}
-                      x {item.quantity}
+                    <p className="text-sm">
+                      Size:{" "}
+                      <span className="text-gray-300 font-medium">
+                        {item.size || "—"}
+                      </span>
                     </p>
-
-                    {item.product.discountPercent > 0 && (
-                      <p className="text-xs text-green-400">
-                        {item.product.discountPercent}% off
-                      </p>
-                    )}
+                    <p className="text-sm">
+                      Color:{" "}
+                      <span className="inline-block  ml-1">{item.color}</span>
+                    </p>
+                    <p className="text-sm">Qty: {item.quantity}</p>
                   </div>
                 </div>
-              );
-            })
-          )}
+
+                <div className="mt-3 md:mt-0 text-right  ">
+                  <p className="text-sm text-gray-400 line-through">
+                    $ {item.product.basePrice}
+                  </p>
+
+                  <p className="font-bold text- text-green-500  ">
+                    ${" "}
+                    {finalAmount(
+                      item.product.basePrice,
+                      totalDiscount(
+                        item.product.discountPercent,
+                        item.product.salePercent
+                      )
+                    )}
+                  </p>
+
+                  <p className="text-xs text-yellow-400">
+                    {totalDiscount(
+                      item.product.discountPercent,
+                      item.product.salePercent
+                    )}
+                    % off
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         {items.length > 0 && (
@@ -139,12 +102,12 @@ export default async function Cart() {
                   >
                     <span>{item.product.name}</span>
                     <span>
-                      $
-                      {calculateFinalPrice(
+                      {finalAmount(
                         item.product.basePrice,
-                        item.product.discountPercent,
-                        item.product.salePercent,
-                        item.quantity
+                        totalDiscount(
+                          item.product.discountPercent,
+                          item.product.salePercent
+                        )
                       )}
                     </span>
                   </div>
@@ -154,12 +117,14 @@ export default async function Cart() {
 
             <div className="border-t border-gray-700 pt-3 flex justify-between text-lg font-semibold text-white">
               <span>Total</span>
-              <span>${totalPrice.toFixed(2)}</span>
+              {/* <span>${totalPrice.toFixed(2)}</span> */}
             </div>
 
-            <button className="mt-4 w-full py-3 rounded-md bg-white text-black font-medium hover:bg-gray-200 transition">
-              Checkout
-            </button>
+            <Link href={"/user/cart/checkout"}>
+              <button className="mt-4 w-full py-3 rounded-md bg-white text-black font-medium hover:bg-gray-200 transition">
+                Checkout
+              </button>
+            </Link>
           </div>
         )}
       </section>

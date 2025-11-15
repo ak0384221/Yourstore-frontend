@@ -4,57 +4,49 @@ import Image from "next/image";
 import MobileMenu from "./mobileMenu";
 import { FiShoppingCart } from "react-icons/fi";
 import { fetchCartItem } from "@/utils/cart/fetchCartItem";
+import { TCartResponse } from "@/types/cartItem";
 
 export default async function Header() {
-  const items = await fetchCartItem();
-
   return (
-    <header
-      className="shadow-lg tracking-wide 
-    
-fixed top-0 w-full h-max  z-100"
-    >
-      <section className="bg-[#262c35] h-[10dvh] flex justify-between items-center px-4">
+    <header className="shadow-lg fixed top-0 w-full h-max  z-100 ">
+      <section className="bg-[#262c35] h-[10dvh] flex justify-between items-center px-2 ">
         {/* Logo */}
-        <Link href="/user" className="">
-          <Image
-            src="/ecommerce.png"
-            alt="logo"
-            width={40}
-            height={40}
-            className="cursor-pointer"
-          />
-        </Link>
+        <div className="size-8 md:size-12   relative">
+          <Link href="/user" className="">
+            <Image
+              src="/ecommerce.png"
+              alt="logo"
+              width={40}
+              height={40}
+              className="cursor-pointer absolute w-full h-full object-cover"
+            />
+          </Link>
+        </div>
 
         {/* Search + Right Actions */}
-        <div className="flex flex-wrap  items-center">
-          <div className="ml-auto">
-            <ul className="flex items-center">
+        <div className="flex flex-wrap  items-center ">
+          <div className="">
+            <ul className="flex items-center gap-2 md:gap-5">
               <li>
-                {" "}
                 <input
                   type="text"
-                  placeholder="Search something..."
-                  className="bg-white p-2 pl-4 rounded-3xl w-[40dvw] md:w-[30dvw] focus:outline-0"
+                  placeholder="Search ..."
+                  className="border border-white text-white text-xs md:text-md p-2 pl-4 rounded-2xl w-[40dvw] md:w-[30dvw] focus:outline-0 placeholder:text-sm"
                 />
               </li>
               {/* Cart */}
-              <li className="max-lg:py-2 px-4 cursor-pointer relative">
+              <li className=" cursor-pointer relative">
                 <Link href="/user/cart" className="relative">
-                  <FiShoppingCart className="text-xl hover:text-gray-600 text-white" />
-                  <div className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-semibold rounded-full w-4 h-4 flex items-center justify-center">
-                    {items?.length || 0}
-                  </div>
+                  <FiShoppingCart className="text-2xl hover:text-gray-400 text-white transition-colors" />
                 </Link>
               </li>
               <li>
-                {" "}
                 <MobileMenu />
               </li>
 
               {/* Sign In */}
-              <li className="flex text-[15px] max-lg:py-2 px-4 ">
-                <button className="px-5 py-3  text-sm font-medium bg-white text-black rounded-3xl cursor-pointer hover:bg-black hover:text-white">
+              <li className="flex text-[15px]  ">
+                <button className="p-2 px-4 text-sm font-medium bg-pink-600 text-white rounded-2xl  cursor-pointer hover:bg-black hover:text-white transition-colors">
                   Sign In
                 </button>
               </li>
@@ -68,12 +60,12 @@ fixed top-0 w-full h-max  z-100"
 
       {/* Collapsible menu */}
 
-      <ul className="flex justify-evenly gap-2  py-2 flex-wrap bg-white">
+      <ul className="flex justify-center gap-x-4 items-start  py-2 flex-wrap bg-white ">
         {highlightedCategories.map((item, index) => (
           <li key={index} className="text-black">
             <Link
               href={`/user/products/category/${item.name}`}
-              className="hover:text-blue-600 text-[15px] font-normal block capitalize"
+              className="hover:text-blue-600 text-[12px] font-normal block capitalize"
             >
               {item.name}
             </Link>

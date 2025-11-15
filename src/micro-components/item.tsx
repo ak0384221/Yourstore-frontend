@@ -1,14 +1,14 @@
 import TextStyleInItem from "@/atomic-components/textStyleOfItem";
 import Tooltip from "@/atomic-components/tooltip";
+import { TProduct } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
 //--------------------------------------//
 
-export default function Item({ item }) {
-  console.log(item);
+export default function Item({ item }: { item: TProduct }) {
   return (
     <Link
-      className="w-4/5 h-[55dvh] bg-[#d1ddeb] 
+      className="w-4/5 h-[45dvh] bg-[#d1ddeb] 
        md:h-[55dvh]  md:w-[40dvw] lg:w-1/4 lg:h-[45dvh] xl:w-1/5 relative "
       href={`/user/products/${item?.productId}`}
     >

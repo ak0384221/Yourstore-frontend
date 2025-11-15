@@ -12,7 +12,7 @@ export default function ListSummary({ title, items }: productListGen) {
     <div className="newArrival">
       <CategoryTitle title={title} />
       <div className="flex justify-center flex-wrap gap-4 my-10 ">
-        <Item /> <Item /> <Item /> <Item />
+        {/* <Item /> <Item /> <Item /> <Item /> */}
       </div>
       <Ads />
     </div>

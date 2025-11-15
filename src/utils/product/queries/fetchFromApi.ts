@@ -1,11 +1,38 @@
-async function fetchFromApi(url: string) {
+async function fetchFromApi(
+  url: string,
+  options?: { revalidate?: number; noCache?: boolean }
+) {
+  const fetchOptions: RequestInit = {};
+
+  if (options?.noCache) {
+    fetchOptions.cache = "no-store"; // always fresh
+  } else if (options?.revalidate) {
+    fetchOptions.next = { revalidate: options.revalidate }; // revalidate after N seconds
+  } else {
+    fetchOptions.cache = "force-cache"; // default static cache
+  }
+
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, fetchOptions);
+    if (!res.ok) {
+      return {
+        ok: false,
+        error: `HTTP error ${res.status}`,
+        data: [],
+      };
+    }
     const data = await res.json();
-    return data;
+    return {
+      ok: true,
+      error: null,
+      data: data,
+    };
   } catch (error) {
-    console.log("some eror happened in fetch", error);
-    throw error;
+    return {
+      ok: false,
+      error: `network error ${error}`,
+      data: [],
+    };
   }
 }
 

@@ -1,50 +1,19 @@
 import HeroSection from "@/components/herosection";
 import CategoryTitle from "@/atomic-components/categoryTitle";
 import Item from "@/micro-components/item";
-import Ads from "@/micro-components/ads";
 import Link from "next/link";
 import { fetchlatestArrival } from "@/utils/product/queries/fetchLatestArrival";
-import { fetchOnSale } from "@/utils/product/queries/fetchOnSale";
-import ShopByCategory from "@/components/shopByCategory";
-import ShopByOccasionCard from "@/micro-components/shopByOccasion";
-import Image from "next/image";
-import Fetchfailed from "@/error/fetchFailed";
+import { TProductRes } from "@/types/product";
 
-type Tproduct = {
-  _id: number;
-  name: string;
-  category: string;
-  price: number;
-  discount: number;
-  description: string;
-  images: string[];
-  stock: number;
-  arrivalDate: string;
-  sale: number;
-};
 export default async function Home() {
-  let latestData = [];
-  let saleData = [];
-
-  try {
-    latestData = await fetchlatestArrival(5);
-  } catch (err) {
-    console.error("Failed to fetch latest arrivals:", err);
-    latestData = []; // fallback value
-  }
-
-  try {
-    saleData = await fetchOnSale();
-  } catch (err) {
-    console.error("Failed to fetch sale data :", err);
-    saleData = []; // fallback value
-  }
+  const latestData: TProductRes = await fetchlatestArrival(5);
+  const { data } = latestData;
 
   return (
     <>
       <HeroSection />
 
-      {latestData?.length > 0 && (
+      {data?.length > 0 && (
         <>
           <div className="newArrival my-5 ">
             <CategoryTitle title="New Arrival" />
@@ -55,7 +24,7 @@ export default async function Home() {
               see all
             </Link>
             <div className="flex justify-center gap-4  my-5 w-full  mx-auto flex-wrap items-center">
-              {latestData?.map((product, index: number) => (
+              {data?.map((product, index: number) => (
                 <Item item={product} key={index} />
               ))}
             </div>
@@ -63,7 +32,7 @@ export default async function Home() {
         </>
       )}
 
-      {latestData?.length == 0 && <Fetchfailed fetchcase={"latestData"} />}
+      {/* {latestData?.length == 0 && <Fetchfailed fetchcase={"latestData"} />} */}
     </>
   );
 }

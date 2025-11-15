@@ -3,8 +3,8 @@
 @theme {
   /* home */
 
-  --color-rootBg: Black;
-  --color-posterBg: Black;
+  --color-rootBg: black;
+  --color-posterBg: black;
   --color-rootText: white;
 
   /* itemBox */
@@ -24,6 +24,8 @@
   --color-navbarBg: Black;
   --color-navbarText: white;
   --color-navbarIcons: white;
+  --marginTop: 15dvh;
+  --marginTopLG: 15dvh;
 
   /*navbar dropdowns */
   --color-navbarDropdownBg: black;
@@ -40,7 +42,7 @@
   --color-cartPostDiscountText: White;
   --color-cartQuantityNumber: white;
   --color-cartSubtotalPrice: white;
-  --color-cartItemRemoveBtn: Red;
+  --color-cartItemRemoveBtn: black;
   --color-cartTotalText: Yellow;
   --color-cartButton: #3b2f72;
 

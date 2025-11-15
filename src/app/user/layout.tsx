@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
-import Navbar from "@/micro-components/navbar";
-import MyButton from "@/atomic-components/myButton";
-import Logo from "@/atomic-components/logo";
-import Footer from "@/micro-components/footer";
+
 import Header from "@/micro-components/newNav";
 
 const geistSans = Geist({
@@ -29,12 +26,11 @@ export default function UserLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="shortcut icon" href="/regalo.png" type="image/x-icon" />
-      </head>
       <body className="bg-rootBg">
         <Header />
-        <div className="md:mt-[15dvh] mt-[20dvh]  ">{children}</div>
+        <div className="mt-[theme(--marginTop)] md:mt-[theme(--marginTopLG)]">
+          {children}
+        </div>
       </body>
     </html>
   );

@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 // export default function StoreLg({ products }) {
 //   return (
 //     <table className="w-full border-collapse text-sm hidden md:inline-table  text-white ">

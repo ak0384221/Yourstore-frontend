@@ -6,6 +6,7 @@ export type TCartItem = {
   productId: string;
   quantity: number;
   color: string;
+  finalAmount: number;
   size: "XS" | "S" | "M" | "L" | "XL" | "2XL" | "3XL";
   addedToCart: string;
 };

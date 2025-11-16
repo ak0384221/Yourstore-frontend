@@ -12,7 +12,7 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   const { id } = await params;
-  const product = await fetchById(id);
+  const product: TProductRes = await fetchById(id);
   const { data } = product;
 
   return {
@@ -37,7 +37,7 @@ export default async function DetailProductPage({
 }) {
   const { id } = await params;
 
-  const product = await fetchById(id);
+  const product: TProductRes = await fetchById(id);
   const { data } = product;
   const { ok } = product;
 

@@ -10,7 +10,6 @@ import {
   totalDiscount,
 } from "@/utils/product/mutations/pricingFunctions";
 import Fetchfailed from "@/error/fetchFailed";
-
 export default async function Cart() {
   const response: TCartResponse = await fetchCartItem();
   const { data: items } = response;
@@ -84,16 +83,23 @@ export default async function Cart() {
                   <p className="text-sm text-gray-400 line-through">
                     $ {item.product.basePrice}
                   </p>
-
-                  <p className="font-bold text- text-green-500  ">
-                    ${" "}
+                  <p>
+                    $
                     {finalAmount(
                       item.product.basePrice,
                       totalDiscount(
                         item.product.discountPercent,
                         item.product.salePercent
                       )
-                    )}
+                    ).toFixed(2)}{" "}
+                    <span className="text-yellow-400 font-black text-sm">
+                      x
+                    </span>{" "}
+                    <span>{item.quantity}</span>
+                  </p>
+
+                  <p className="font-bold text- text-green-500  ">
+                    ${item.finalAmount.toFixed(2)}
                   </p>
 
                   <p className="text-xs text-yellow-400">
@@ -123,17 +129,7 @@ export default async function Cart() {
                     className="flex justify-between text-sm text-gray-300"
                   >
                     <span>{item.product.name}</span>
-                    <span>
-                      {finalAmount(
-                        item.product.basePrice,
-                        totalDiscount(
-                          item.product.discountPercent,
-                          item.product.salePercent
-                        )
-                      )}
-                      {""} $ <span className="text-yellow-500">x</span>{" "}
-                      {item.quantity}
-                    </span>
+                    <span>{item.finalAmount.toFixed(2)} $</span>
                   </div>
                 );
               })}

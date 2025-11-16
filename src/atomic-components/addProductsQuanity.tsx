@@ -49,6 +49,7 @@ export default function ProductsPcsAdd({ item }: { item: TProduct }) {
       return "price calculation error";
     }
   }
+  const final = finalprice();
 
   function handleCart() {
     if (!selectedSize || !selectedColor) {
@@ -62,11 +63,10 @@ export default function ProductsPcsAdd({ item }: { item: TProduct }) {
       quantity: productsQuantity,
       color: selectedColor,
       size: selectedSize,
-      finalAmount: finalprice(),
+      finalAmount: final,
     };
     sendCartToBackend(cartObj);
   }
-  finalprice();
 
   return (
     <div className="w-full md:w-1/2 flex flex-col gap-6 mt-8 text-white border-3 p-5">

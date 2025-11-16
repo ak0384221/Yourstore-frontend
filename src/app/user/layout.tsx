@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Regalo | Send A Gift",
+  title: "Yourstore | Buy something..",
   description: "Send a gift",
 };
 

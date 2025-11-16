@@ -3,8 +3,6 @@ import { highlightedCategories } from "@/staticTexts/categories";
 import Image from "next/image";
 import MobileMenu from "./mobileMenu";
 import { FiShoppingCart } from "react-icons/fi";
-import { fetchCartItem } from "@/utils/cart/fetchCartItem";
-import { TCartResponse } from "@/types/cartItem";
 
 export default async function Header() {
   return (
@@ -60,12 +58,12 @@ export default async function Header() {
 
       {/* Collapsible menu */}
 
-      <ul className="flex justify-center gap-x-4 items-start  py-2 flex-wrap bg-white ">
+      <ul className="flex justify-center gap-x-4 items-start  py-2 px-2 flex-wrap bg-white ">
         {highlightedCategories.map((item, index) => (
-          <li key={index} className="text-black">
+          <li key={index} className="text-black ">
             <Link
               href={`/user/products/category/${item.name}`}
-              className="hover:text-blue-600 text-[12px] font-normal block capitalize"
+              className="hover:text-pink-600 text-[12px] font-normal block capitalize"
             >
               {item.name}
             </Link>

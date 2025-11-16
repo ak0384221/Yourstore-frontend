@@ -4,12 +4,34 @@ import Image from "next/image";
 import Link from "next/link";
 import { TCartResponse } from "@/types/cartItem";
 import {
+  calculateTotalAmount,
+  calculateTotalPrice,
   finalAmount,
   totalDiscount,
 } from "@/utils/product/mutations/pricingFunctions";
+import Fetchfailed from "@/error/fetchFailed";
+
 export default async function Cart() {
   const response: TCartResponse = await fetchCartItem();
   const { data: items } = response;
+  const { ok } = response;
+
+  if (!ok) {
+    return <Fetchfailed fetchcase="Cart" />;
+  }
+
+  if (items.length === 0) {
+    return (
+      <div>
+        <p className="text-5xl text-center py-10 text-neutral-700 font-extrabold">
+          cart is empty
+        </p>
+      </div>
+    );
+  }
+
+  const orderSummary = calculateTotalPrice(items);
+  const total = calculateTotalAmount(orderSummary);
 
   return (
     <>
@@ -109,6 +131,8 @@ export default async function Cart() {
                           item.product.salePercent
                         )
                       )}
+                      {""} $ <span className="text-yellow-500">x</span>{" "}
+                      {item.quantity}
                     </span>
                   </div>
                 );
@@ -117,11 +141,11 @@ export default async function Cart() {
 
             <div className="border-t border-gray-700 pt-3 flex justify-between text-lg font-semibold text-white">
               <span>Total</span>
-              {/* <span>${totalPrice.toFixed(2)}</span> */}
+              <span className="text-white">{total.toFixed(2)}</span>
             </div>
 
             <Link href={"/user/cart/checkout"}>
-              <button className="mt-4 w-full py-3 rounded-md bg-white text-black font-medium hover:bg-gray-200 transition">
+              <button className="mt-4 w-full py-3 rounded-md bg-white text-black font-medium hover:bg-pink-600 hover:text-white transition cursor-pointer">
                 Checkout
               </button>
             </Link>

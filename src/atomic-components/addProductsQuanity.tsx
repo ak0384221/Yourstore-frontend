@@ -4,6 +4,10 @@ import { useState } from "react";
 import { IoAddCircle } from "react-icons/io5";
 import { BiSolidMinusCircle } from "react-icons/bi";
 import { TProduct } from "@/types/product";
+import {
+  finalAmount,
+  totalDiscount,
+} from "@/utils/product/mutations/pricingFunctions";
 
 export default function ProductsPcsAdd({ item }: { item: TProduct }) {
   const [productsQuantity, setProductQuantity] = useState(1);
@@ -33,6 +37,19 @@ export default function ProductsPcsAdd({ item }: { item: TProduct }) {
     }
   }
 
+  function finalprice() {
+    const singleItemPrice: number | string = finalAmount(
+      item.basePrice,
+      totalDiscount(item.discountPercent, item.salePercent)
+    );
+    if (typeof singleItemPrice === "number") {
+      const finalPrice = singleItemPrice * productsQuantity;
+      return finalPrice;
+    } else {
+      return "price calculation error";
+    }
+  }
+
   function handleCart() {
     if (!selectedSize || !selectedColor) {
       setCartMessage("Select all options");
@@ -45,9 +62,11 @@ export default function ProductsPcsAdd({ item }: { item: TProduct }) {
       quantity: productsQuantity,
       color: selectedColor,
       size: selectedSize,
+      finalAmount: finalprice(),
     };
     sendCartToBackend(cartObj);
   }
+  finalprice();
 
   return (
     <div className="w-full md:w-1/2 flex flex-col gap-6 mt-8 text-white border-3 p-5">

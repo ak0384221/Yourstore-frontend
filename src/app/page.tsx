@@ -24,14 +24,14 @@ export default function RootSelection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           <Link
             href="/user"
-            className="px-10 py-5 rounded-2xl bg-indigo-500 hover:bg-indigo-600 transition-all duration-300 text-lg font-medium text-center s"
+            className="px-10 py-4 active:scale-95 bg-indigo-500 hover:bg-indigo-600 transition-all duration-300 text-lg font-medium text-center s"
           >
             Continue as User
           </Link>
 
           <Link
             href="/admin"
-            className="px-10 py-5 rounded-2xl bg-rose-500 hover:bg-rose-600 transition-all duration-300 text-lg font-medium text-center "
+            className="px-10 py-4 active:scale-95 bg-pink-600 hover:bg-rose-600 transition-all duration-300 text-lg font-medium text-center "
           >
             Continue as Admin
           </Link>

@@ -4,10 +4,31 @@ import Item from "@/micro-components/item";
 import Link from "next/link";
 import { fetchlatestArrival } from "@/utils/product/queries/fetchLatestArrival";
 import { TProductRes } from "@/types/product";
+import Fetchfailed from "@/error/emptyData";
+import EmptyData from "@/error/emptyData";
 
 export default async function Home() {
   const latestData: TProductRes = await fetchlatestArrival(5);
   const { data } = latestData;
+  const { ok } = latestData;
+
+  if (!ok) {
+    return (
+      <>
+        <HeroSection />
+        <Fetchfailed fetchcase="Latest Products" />;
+      </>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <>
+        <HeroSection />
+        <EmptyData fetchcase="Latest Data" />;
+      </>
+    );
+  }
 
   return (
     <>
@@ -31,8 +52,6 @@ export default async function Home() {
           </div>
         </>
       )}
-
-      {/* {latestData?.length == 0 && <Fetchfailed fetchcase={"latestData"} />} */}
     </>
   );
 }

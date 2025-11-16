@@ -1,7 +1,10 @@
+import { TCartItem } from "@/types/cartItem";
+import { TorderSummary } from "@/types/order";
+
 function totalDiscount(
   regularDiscount: number = 0,
   saleDiscount: number = 0
-): number | string {
+): number {
   if (saleDiscount === 0) {
     return Number(regularDiscount.toFixed(2));
     //only regulardiscount
@@ -10,19 +13,38 @@ function totalDiscount(
     return Number(total.toFixed(2));
     //Regular+sales
   } else {
-    return "must be greater than 0";
+    return 0;
   }
 }
 
-function finalAmount(
-  basePrice: number,
-  totalDiscount: number | string
-): number | string {
-  if (typeof totalDiscount === "string") {
-    return "discount must be a number";
-  }
+function finalAmount(basePrice: number, totalDiscount: number): number {
   const discounted = (Number(basePrice) * Number(totalDiscount)) / 100;
-  return Number((basePrice - discounted).toFixed(2));
+  return Number(basePrice - discounted);
 }
 
-export { totalDiscount, finalAmount };
+function calculateTotalPrice(items: TCartItem[]) {
+  return items.map((item) => {
+    return {
+      Pname: item.product.name,
+      Pid: item.product.productId,
+      finalPrice: finalAmount(
+        item.product.basePrice,
+        totalDiscount(item.product.discountPercent, item.product.salePercent)
+      ),
+      qty: item.quantity,
+    };
+  });
+}
+
+function calculateTotalAmount(items: TorderSummary[]) {
+  return items.reduce((total, item) => {
+    return total + item.finalPrice * item.qty;
+  }, 0);
+}
+
+export {
+  totalDiscount,
+  finalAmount,
+  calculateTotalPrice,
+  calculateTotalAmount,
+};

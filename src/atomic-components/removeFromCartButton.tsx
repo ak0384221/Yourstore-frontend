@@ -16,7 +16,8 @@ export default function RemoveCartItem({ id }: { id: string }) {
         await removeFromCart(id);
         router.refresh();
       }}
-      className="text-cartItemRemoveBtn  hover:text-red-500 absolute -top-4 rounded-full bg-white size-8 -right-2 text-2xl cursor-pointer"
+      className="text-cartItemRemoveBtn  hover:bg-pink-600 hover:text-white
+        absolute -top-4 rounded-full bg-white size-8 -right-2 text-xl cursor-pointer transition-colors"
     >
       ✕
     </button>

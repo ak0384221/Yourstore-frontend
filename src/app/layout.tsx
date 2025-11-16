@@ -13,6 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="shortcut icon" href="regalo.png" type="image/x-icon" />
+      </head>
       <body className="bg-rootBg">
         <div>{children}</div>
       </body>

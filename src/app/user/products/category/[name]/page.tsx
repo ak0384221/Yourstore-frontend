@@ -1,5 +1,5 @@
+import EmptyData from "@/error/emptyData";
 import Fetchfailed from "@/error/fetchFailed";
-import EmptyCart from "@/error/noCartFound";
 import Item from "@/micro-components/item";
 import { allCategories } from "@/staticTexts/categories";
 import { TProductRes } from "@/types/product";
@@ -12,7 +12,7 @@ export async function generateMetadata({
 }: {
   params: { name: string };
 }): Promise<Metadata> {
-  const { name } = params;
+  const { name } = await params;
   const isAvaiable = allCategories.some(
     (category) => category.name.trim() === name.trim()
   );
@@ -26,21 +26,39 @@ export async function generateStaticParams() {
   return allCategories.map((obj) => ({ name: obj.name }));
 }
 export default async function ({ params }: { params: { name: string } }) {
-  const { name } = params;
+  const { name } = await params;
   const isAvaiable = allCategories.some(
     (category) => category.name.trim() === name.trim()
   );
 
-  const products: TProductRes = await fetchByCategory(name);
+  if (!isAvaiable) {
+    return (
+      <div className="text-neutral-700 text-center  py-10 font-extrabold">
+        <p className="text-[15dvw]">404 Error!</p>
+        <p className="text-3xl"> This category does not exist.</p>
+      </div>
+    );
+  }
+
+  const products: TProductRes | [] = await fetchByCategory(name);
   const { data } = products;
+  const { ok } = products;
+
+  if (!ok) {
+    return <Fetchfailed fetchcase={`${name}`} />;
+  }
+
+  if (data.length === 0) {
+    return <EmptyData fetchcase={`${name} Products`} />;
+  }
 
   return (
     <>
+      <h1 className="text-center text-pink-500 text-3xl capitalize font-bold mb-8 py-5">
+        {name}
+      </h1>
       {data.length > 0 && (
         <div className="w-[97dvw] mx-auto pt-8">
-          <h1 className="text-center text-pink-500 text-3xl capitalize font-bold mb-8">
-            {name}
-          </h1>
           <Suspense fallback={"loading"}>
             <div className="flex justify-center gap-[7dvh] flex-wrap">
               {data?.length > 0 ? (
@@ -56,8 +74,7 @@ export default async function ({ params }: { params: { name: string } }) {
           </Suspense>
         </div>
       )}
-
-      {/* {products.length == 0 && <Fetchfailed fetchcase={name} />} */}
+      {data.length === 0 && <EmptyData fetchcase={name} />}
     </>
   );
 }

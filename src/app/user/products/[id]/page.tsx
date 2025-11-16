@@ -1,5 +1,7 @@
 import ProductDetails from "@/components/detailProduct";
-import { TProductRes } from "@/types/product";
+import EmptyData from "@/error/emptyData";
+import Fetchfailed from "@/error/fetchFailed";
+import { TProduct, TProductRes } from "@/types/product";
 import { fetchAllProduct } from "@/utils/product/queries/fetchAllProducts";
 import { fetchById } from "@/utils/product/queries/fetchById";
 import { Metadata } from "next";
@@ -10,13 +12,12 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   const { id } = await params;
-
   const product = await fetchById(id);
   const { data } = product;
 
   return {
-    title: data.name,
-    description: data.description,
+    title: data[0].name,
+    description: data[0].description,
   };
 }
 export async function generateStaticParams({
@@ -38,6 +39,16 @@ export default async function DetailProductPage({
 
   const product = await fetchById(id);
   const { data } = product;
+  const { ok } = product;
+
+  if (!ok) {
+    return <Fetchfailed fetchcase={`No product found`} />;
+  }
+
+  if (data.length === 0) {
+    return <EmptyData fetchcase={`No product found`} />;
+  }
+
   return (
     <>
       <ProductDetails item={data[0]} />

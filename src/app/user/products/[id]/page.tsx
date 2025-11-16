@@ -1,7 +1,7 @@
 import ProductDetails from "@/components/detailProduct";
 import EmptyData from "@/error/emptyData";
 import Fetchfailed from "@/error/fetchFailed";
-import { TProduct, TProductRes } from "@/types/product";
+import { TProductRes } from "@/types/product";
 import { fetchAllProduct } from "@/utils/product/queries/fetchAllProducts";
 import { fetchById } from "@/utils/product/queries/fetchById";
 import { Metadata } from "next";

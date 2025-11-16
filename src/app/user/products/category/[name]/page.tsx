@@ -25,7 +25,11 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   return allCategories.map((obj) => ({ name: obj.name }));
 }
-export default async function ({ params }: { params: { name: string } }) {
+export default async function CategoryPage({
+  params,
+}: {
+  params: { name: string };
+}) {
   const { name } = await params;
   const isAvaiable = allCategories.some(
     (category) => category.name.trim() === name.trim()

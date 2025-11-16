@@ -75,13 +75,13 @@ export default function ProductsPcsAdd({ item }: { item: TProduct }) {
         <div className="flex flex-col gap-4">
           <h3 className="text-lg font-semibold">Choose Options</h3>
 
-          {item.variants.map((variant: any, index: number) => (
+          {item.variants.map((variant, index: number) => (
             <div key={index} className="flex flex-col gap-3">
               <span className="font-medium capitalize">
                 Size: {variant.size}
               </span>
               <div className="flex gap-3">
-                {variant.colors.map((color: any, idx: number) => (
+                {variant.colors.map((color, idx: number) => (
                   <button
                     key={idx}
                     onClick={() => {

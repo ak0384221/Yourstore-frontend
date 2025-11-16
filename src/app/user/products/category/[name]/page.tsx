@@ -54,11 +54,11 @@ export default async function ({ params }: { params: { name: string } }) {
 
   return (
     <>
-      <h1 className="text-center text-pink-500 text-3xl capitalize font-bold mb-8 py-5">
+      <h1 className="text-center text-white text-4xl capitalize font-bold mb-8 pt-15">
         {name}
       </h1>
       {data.length > 0 && (
-        <div className="w-[97dvw] mx-auto pt-8">
+        <div className="w-[97dvw] mx-auto ">
           <Suspense fallback={"loading"}>
             <div className="flex justify-center gap-[7dvh] flex-wrap">
               {data?.length > 0 ? (

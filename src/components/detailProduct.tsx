@@ -72,7 +72,7 @@ export default function ProductDetails({ item }: { item: TProduct }) {
             {finalAmount(
               item.basePrice,
               totalDiscount(item.discountPercent, item.salePercent)
-            )}
+            ).toFixed(2)}
           </span>
           {item.discountPercent > 0 && (
             <span className="text-sm text-red-500 font-semibold">

@@ -1,5 +1,5 @@
 "use client";
-
+import { BASE_URL } from "@/utils/baseApi";
 import { useState } from "react";
 import { IoAddCircle } from "react-icons/io5";
 import { BiSolidMinusCircle } from "react-icons/bi";
@@ -14,7 +14,6 @@ export default function ProductsPcsAdd({ item }: { item: TProduct }) {
   const [cartMessage, setCartMessage] = useState("Add to cart");
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
-
   function productIncrement() {
     setProductQuantity((prev) => prev + 1);
   }
@@ -25,7 +24,7 @@ export default function ProductsPcsAdd({ item }: { item: TProduct }) {
 
   async function sendCartToBackend(cartObj: object) {
     try {
-      const res = await fetch("http://localhost:5000/api/cart", {
+      const res = await fetch(`${BASE_URL}/api/cart`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(cartObj),

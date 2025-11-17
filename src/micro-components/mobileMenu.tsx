@@ -42,7 +42,7 @@ export default function MobileMenu() {
         className="text-4xl  cursor-pointer hover:text-gray-400 text-white transition-colors"
       />
       {isOpen && (
-        <div className="mobile option absolute right-5 top-[10vh] w-[90dvw] md:w-[40dvw] bg-[#1c1f24] h-max text-white z-50">
+        <div className="mobile option absolute right-5 top-[10vh] w-[90svw] md:w-[40svw] bg-[#1a1c1d] h-max text-white z-50">
           <ul className="h-full   grid grid-cols-2 gap-2 ">
             {mobileNav.map((nav, ind) => (
               <Link

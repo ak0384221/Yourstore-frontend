@@ -3,9 +3,9 @@
 @theme {
   /* home */
 
-  --color-rootBg: black;
+  --color-rootBg: white;
   --color-posterBg: black;
-  --color-rootText: white;
+  --color-rootText: black;
 
   /* itemBox */
 
@@ -34,7 +34,7 @@
   --color-navbarDropdownHoverText: black;
 
   /*category header*/
-  --color-categoryHeader: white;
+  --color-categoryHeader: black;
 
   /*cart*/
   --color-cartText: white;
@@ -47,5 +47,5 @@
   --color-cartButton: #3b2f72;
 
   /*product detail page*/
-  --color-productDetailPageText: White;
+  --color-productDetailPageText: black;
 }

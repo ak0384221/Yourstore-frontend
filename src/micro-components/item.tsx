@@ -8,8 +8,8 @@ import Link from "next/link";
 export default function Item({ item }: { item: TProduct }) {
   return (
     <Link
-      className="w-4/5 h-[45dvh] bg-[#d1ddeb] 
-       md:h-[55dvh]  md:w-[40dvw] lg:w-1/4 lg:h-[45dvh] xl:w-1/5 relative "
+      className="w-4/5 h-[45svh] bg-white border border-[#d3d1d1] hover:bg-[#eef5f4]
+       md:h-[55svh]  md:w-[40svw] lg:w-1/4 lg:h-[45svh] xl:w-1/5 relative transition-colors "
       href={`/user/products/${item?.productId}`}
     >
       <div className="item  h-full   p-2 ">

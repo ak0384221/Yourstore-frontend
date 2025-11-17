@@ -68,7 +68,7 @@ export default function ProductsPcsAdd({ item }: { item: TProduct }) {
   }
 
   return (
-    <div className="w-full md:w-1/2 flex flex-col gap-6 mt-8 text-white border-3 p-5">
+    <div className="w-full md:w-1/2 flex flex-col gap-6 mt-8 text-black border-1 border-[#cacaca] p-5">
       {/* Variants Selector */}
       {item.variants && item.variants.length > 0 && (
         <div className="flex flex-col gap-4">
@@ -124,7 +124,7 @@ export default function ProductsPcsAdd({ item }: { item: TProduct }) {
       {/* Add to Cart Button */}
       <button
         onClick={handleCart}
-        className="w-max px-8 py-3 rounded-md bg-gradient-to-r from-gray-700 to-gray-900 text-white font-medium hover:from-gray-600 hover:to-gray-800 transition-all duration-200"
+        className="w-max px-8 py-3 rounded-md bg-blue-600 text-white hover:bg-blue-500 cursor-pointer  transition-all "
       >
         {cartMessage}
       </button>

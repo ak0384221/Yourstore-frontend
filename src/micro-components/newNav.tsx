@@ -6,16 +6,16 @@ import { FiShoppingCart } from "react-icons/fi";
 
 export default async function Header() {
   return (
-    <header className="shadow-lg fixed top-0 w-full h-max  z-100 ">
-      <section className="bg-[#262c35] h-[10dvh] flex justify-between items-center px-2 ">
+    <header className=" fixed top-0 w-full h-[15svh]  z-100 ">
+      <section className="bg-[#1a1c1d] h-[9svh]  flex justify-between items-center px-2 ">
         {/* Logo */}
         <div className="size-8 md:size-12   relative">
           <Link href="/user" className="">
             <Image
               src="/ecommerce.png"
               alt="logo"
-              width={40}
-              height={40}
+              width={200}
+              height={200}
               className="cursor-pointer absolute w-full h-full object-cover"
             />
           </Link>
@@ -29,7 +29,7 @@ export default async function Header() {
                 <input
                   type="text"
                   placeholder="Search ..."
-                  className="border border-white text-white text-xs md:text-md p-2 pl-4 rounded-2xl w-[40dvw] md:w-[30dvw] focus:outline-0 placeholder:text-sm"
+                  className="border border-white text-white text-xs md:text-md p-2 pl-4 rounded-2xl w-[40svw] md:w-[30svw] focus:outline-0 placeholder:text-sm"
                 />
               </li>
               {/* Cart */}
@@ -58,7 +58,7 @@ export default async function Header() {
 
       {/* Collapsible menu */}
 
-      <ul className="flex justify-center gap-x-4 items-start  py-2 px-2 flex-wrap bg-white ">
+      <ul className="flex justify-center gap-x-4 items-start  h-[6svh] px-2 flex-wrap bg-[#eff6f7] leading-tight py-1 ">
         {highlightedCategories.map((item, index) => (
           <li key={index} className="text-black ">
             <Link

@@ -15,10 +15,10 @@ export default function UserLayout({
   return (
     <html lang="en">
       <body className="bg-rootBg">
-        <Header />
-        <div className="mt-[theme(--marginTop)] md:mt-[theme(--marginTopLG)]">
-          {children}
+        <div className="h-[15svh] 0 relative">
+          <Header />
         </div>
+        <div>{children}</div>
       </body>
     </html>
   );

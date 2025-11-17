@@ -10,13 +10,13 @@ import Image from "next/image";
 export default function ProductDetails({ item }: { item: TProduct }) {
   return (
     <div
-      className="max-w-[1200px] mx-auto mt-[20dvh] md:mt-[20dvh] p-4 md:p-8 flex
-    flex-col md:flex-row gap-8 bg-[#131010] text-white "
+      className="mx-auto p-4 md:p-8 flex
+    flex-col md:flex-row gap-8 bg-white text-black "
     >
       {/* ---------- Product Images ---------- */}
       <div className="flex-1 flex flex-col md:flex-row gap-4">
         <div
-          className="w-full md:w-2/3 h-[60vh] flex justify-center items-center
+          className="w-full md:w-2/3 h-[60svh] flex justify-center items-center
           rounded-lg shadow-sm overflow-hidden"
         >
           <Image
@@ -114,7 +114,7 @@ export default function ProductDetails({ item }: { item: TProduct }) {
         </div>
 
         {/* Shipping & Guarantee */}
-        <div className="mt-6 p-4  rounded-lg border">
+        <div className="mt-6 p-4  rounded-lg border border-[#b9b9b9]">
           <b className="text-lg md:text-xl">Free Shipping on Orders Over $50</b>
           <ul className="list-disc ml-5 mt-2 space-y-1  text-sm">
             <li>No-Risk Money Back Guarantee!</li>

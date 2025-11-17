@@ -38,7 +38,7 @@ export default async function CategoryPage({
   if (!isAvaiable) {
     return (
       <div className="text-neutral-700 text-center  py-10 font-extrabold">
-        <p className="text-[15dvw]">404 Error!</p>
+        <p className="text-[15svw]">404 Error!</p>
         <p className="text-3xl"> This category does not exist.</p>
       </div>
     );
@@ -58,13 +58,13 @@ export default async function CategoryPage({
 
   return (
     <>
-      <h1 className="text-center text-white text-4xl capitalize font-bold mb-8 pt-15">
+      <h1 className="text-center text-black my-7 text-4xl capitalize font-bold ">
         {name}
       </h1>
       {data.length > 0 && (
-        <div className="w-[97dvw] mx-auto ">
+        <div className="w-[97svw] mx-auto ">
           <Suspense fallback={"loading"}>
-            <div className="flex justify-center gap-[7dvh] flex-wrap">
+            <div className="flex justify-center gap-[7svh] flex-wrap">
               {data?.length > 0 ? (
                 data?.map((product, id: number) => (
                   <Item item={product} key={id} />

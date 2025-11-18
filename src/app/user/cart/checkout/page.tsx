@@ -1,129 +1,92 @@
-export default function Checkout() {
+import Fetchfailed from "@/error/fetchFailed";
+import { TCartResponse } from "@/types/cartItem";
+import { fetchCartItem } from "@/utils/cart/fetchCartItem";
+import {
+  calculateTotalAmount,
+  calculateTotalPrice,
+} from "@/utils/product/mutations/pricingFunctions";
+import CheckoutForm from "./ShippingForm";
+
+export default async function Checkout() {
+  const response: TCartResponse = await fetchCartItem();
+  const { data: items } = response;
+  const { ok } = response;
+
+  if (!ok) {
+    return <Fetchfailed fetchcase="Cart" />;
+  }
+
+  if (items.length === 0) {
+    return (
+      <div>
+        <p className="text-5xl text-center py-10 text-neutral-700 font-extrabold">
+          cart is empty
+        </p>
+      </div>
+    );
+  }
+  const orderSummary = calculateTotalPrice(items);
+  const total = calculateTotalAmount(orderSummary);
+  const orderedItems = items.map((item) => {
+    const orders = {
+      productId: item.product.productId,
+      images: item.product.images,
+      name: item.product.name,
+      category: item.product.category,
+      size: item.size,
+      brand: item.product.brand,
+      color: item.color,
+      basePrice: item.product.basePrice,
+      discountPercent: item.product.discountPercent,
+      salePercent: item.product.salePercent,
+
+      finalPrice: item.product.finalPrice,
+      quantity: item.quantity,
+      totalPrice: item.finalAmount,
+    };
+    return orders;
+  });
+  console.log("server comp", orderedItems);
+
   return (
     <>
       <div className="min-h-screen  text-black py-10 px-4 flex justify-center">
         <div className="w-full max-w-4xl flex flex-col gap-8">
           {/* --- Order Summary --- */}
-          <section className="bg-[#dae4e6] border border-gray-800 rounded-2xl p-6 shadow-md">
-            <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
-
-            <div className="flex flex-col gap-3 text-sm">
-              <div className="flex justify-between border-b border-gray-700 pb-2">
-                <span>Product Name</span>
-                <span>$120</span>
-              </div>
-              <div className="flex justify-between border-b border-gray-700 pb-2">
-                <span>Shipping</span>
-                <span>$10</span>
-              </div>
-              <div className="flex justify-between font-semibold text-lg mt-2">
-                <span>Total</span>
-                <span>$130</span>
-              </div>
+          <div className="border border-neutral-300 rounded-xl p-4 bg-gray-50 flex flex-col gap-2">
+            {/* Items List */}
+            <div className="flex flex-col gap-3">
+              {items.map((item) => (
+                <div
+                  key={item?._id}
+                  className="flex justify-between items-center text-sm bg-white p-2 rounded-md shadow-sm"
+                >
+                  <span className="text-gray-800 font-medium">
+                    {item?.product?.name} × {item?.quantity}
+                  </span>
+                  <span className="text-gray-700 font-semibold">
+                    {item?.finalAmount.toFixed(2)} $
+                  </span>
+                </div>
+              ))}
             </div>
-          </section>
 
-          {/* --- User Details Form --- */}
-          <section className="bg-[#dae4e6] text-black border border-gray-800 rounded-2xl p-6 shadow-md">
-            <h2 className="text-2xl font-semibold mb-6">Shipping Details</h2>
+            {/* Shipping Charge */}
+            <div className="flex justify-between text-sm  pt-3">
+              <span className="text-gray-700 font-medium">Shipping Charge</span>
+              <span className="text-gray-700 font-semibold">100 $</span>
+            </div>
 
-            <form className="flex flex-col gap-5">
-              {/* Name */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm  mb-1">First Name</label>
-                  <input
-                    type="text"
-                    placeholder="John"
-                    className="w-full bg-transparent placeholder:text-neutral-600 border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:border-gray-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm  mb-1">Last Name</label>
-                  <input
-                    type="text"
-                    placeholder="Doe"
-                    className="w-full bg-transparent placeholder:text-neutral-600 border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:border-gray-500"
-                  />
-                </div>
-              </div>
+            {/* Total */}
+            <div className="flex justify-between text-lg font-semibold text-black  pt-3">
+              <span className="text-red-500">Total</span>
+              <span className="text-green-600">
+                {(total + 100).toFixed(2)} $
+              </span>
+            </div>
+          </div>
 
-              {/* Email & Phone */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm  mb-1">Email</label>
-                  <input
-                    type="email"
-                    placeholder="johndoe@email.com"
-                    className="w-full bg-transparent placeholder:text-neutral-600 border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:border-gray-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm  mb-1">Phone Number</label>
-                  <input
-                    type="tel"
-                    placeholder="+1 234 567 890"
-                    className="w-full bg-transparent placeholder:text-neutral-600 border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:border-gray-500"
-                  />
-                </div>
-              </div>
-
-              {/* Address */}
-              <div>
-                <label className="block text-sm  mb-1">Street Address</label>
-                <input
-                  type="text"
-                  placeholder="1234 Main St"
-                  className="w-full bg-transparent placeholder:text-neutral-600 border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:border-gray-500"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-sm  mb-1">City</label>
-                  <input
-                    type="text"
-                    placeholder="New York"
-                    className="w-full bg-transparent placeholder:text-neutral-600 border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:border-gray-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm  mb-1">State</label>
-                  <input
-                    type="text"
-                    placeholder="NY"
-                    className="w-full bg-transparent placeholder:text-neutral-600 border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:border-gray-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm  mb-1">Zip Code</label>
-                  <input
-                    type="text"
-                    placeholder="10001"
-                    className="w-full bg-transparent placeholder:text-neutral-600 border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:border-gray-500"
-                  />
-                </div>
-              </div>
-
-              {/* Country */}
-              <div>
-                <label className="block text-sm  mb-1">Country</label>
-                <input
-                  type="text"
-                  placeholder="United States"
-                  className="w-full bg-transparent placeholder:text-neutral-600 border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:border-gray-500"
-                />
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="button"
-                className="w-full md:w-max text-white px-10 py-3 bg-blue-600 hover:bg-blue-500  rounded-md font-medium transition-all cursor-pointer"
-              >
-                Place Order
-              </button>
-            </form>
-          </section>
+          <CheckoutForm orderedItems={orderedItems} total={total} />
         </div>
       </div>
     </>

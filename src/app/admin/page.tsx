@@ -1,9 +1,11 @@
+import LargeScreenOrder from "./components/largeScreenOrder";
+import MobileOrder from "./components/mobileOrder";
+
 export default async function AdminPage() {
   return (
     <>
-      <div className="overflow-x-auto">
-        <h1>in developement</h1>
-      </div>
+      <LargeScreenOrder />
+      {/* <MobileOrder /> */}
     </>
   );
 }

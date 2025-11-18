@@ -30,6 +30,7 @@ export default async function Cart() {
   }
 
   const orderSummary = calculateTotalPrice(items);
+
   const total = calculateTotalAmount(orderSummary);
 
   return (

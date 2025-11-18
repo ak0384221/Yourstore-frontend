@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../globals.css";
+import AdminNavbar from "@/micro-components/adminNavbar";
 
 export const metadata: Metadata = {
   title: "Regalo | Send A Gift",
@@ -15,7 +16,8 @@ export default function UserLayout({
     <html lang="en">
       <head></head>
       <body className="bg-rootBg text-white">
-        <div className=" mt-[15dvh]">{children}</div>
+        <AdminNavbar />
+        <div>{children}</div>
       </body>
     </html>
   );

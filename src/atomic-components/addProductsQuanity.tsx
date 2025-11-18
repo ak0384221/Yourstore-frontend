@@ -8,32 +8,20 @@ import {
   finalAmount,
   totalDiscount,
 } from "@/utils/product/mutations/pricingFunctions";
+import { sendPostReq } from "@/utils/product/mutations/sendPostReq";
 
 export default function ProductsPcsAdd({ item }: { item: TProduct }) {
   const [productsQuantity, setProductQuantity] = useState(1);
   const [cartMessage, setCartMessage] = useState("Add to cart");
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
+
   function productIncrement() {
     setProductQuantity((prev) => prev + 1);
   }
 
   function productDecrement() {
     if (productsQuantity > 1) setProductQuantity((prev) => prev - 1);
-  }
-
-  async function sendCartToBackend(cartObj: object) {
-    try {
-      const res = await fetch(`${BASE_URL}/api/cart`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(cartObj),
-      });
-      const data = await res.json();
-      setCartMessage("Item Added");
-    } catch (err) {
-      setCartMessage("Failed to add");
-    }
   }
 
   function finalprice() {
@@ -55,7 +43,6 @@ export default function ProductsPcsAdd({ item }: { item: TProduct }) {
       setCartMessage("Select all options");
       return;
     }
-
     const cartObj = {
       product: item._id,
       productId: item.productId,
@@ -64,7 +51,7 @@ export default function ProductsPcsAdd({ item }: { item: TProduct }) {
       size: selectedSize,
       finalAmount: final,
     };
-    sendCartToBackend(cartObj);
+    sendPostReq(`${BASE_URL}/api/cart`, cartObj, setCartMessage);
   }
 
   return (

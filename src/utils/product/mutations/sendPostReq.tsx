@@ -1,4 +1,10 @@
-async function sendPostReq(url: string, bodyObj: any, setState?: any) {
+import { TOrders } from "@/types/order";
+
+async function sendPostReq(
+  url: string,
+  bodyObj: TOrders,
+  setState?: React.Dispatch<React.SetStateAction<string>>
+) {
   try {
     const res = await fetch(url, {
       method: "POST",
@@ -6,11 +12,11 @@ async function sendPostReq(url: string, bodyObj: any, setState?: any) {
       body: JSON.stringify(bodyObj),
     });
     if (!res.ok) {
-      setState("failed");
+      setState?.("failed");
       return { ok: false, data: [], error: `HTTP error ${res.status}` };
     }
     const data = await res.json();
-    setState("succeed");
+    setState?.("succeed");
 
     return {
       ok: true,
@@ -18,7 +24,7 @@ async function sendPostReq(url: string, bodyObj: any, setState?: any) {
       data: data,
     };
   } catch (error) {
-    setState("failed");
+    setState?.("failed");
 
     return {
       ok: false,

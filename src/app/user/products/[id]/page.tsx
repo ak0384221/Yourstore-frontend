@@ -16,8 +16,8 @@ export async function generateMetadata({
   const { data } = product;
 
   return {
-    title: data[0].name,
-    description: data[0].description,
+    title: data[0]?.name,
+    description: data[0]?.description,
   };
 }
 export async function generateStaticParams({

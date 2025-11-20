@@ -5,7 +5,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { sendOrders } from "@/utils/product/mutations/sendOrders";
 import { TOrderItem, TOrders } from "@/types/order";
-
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 // --------------------
 // Zod Schema
 // --------------------
@@ -28,6 +29,7 @@ export default function CheckoutForm({
   orderedItems: TOrderItem[];
   total: number;
 }) {
+  const [orderText, setOrderText] = useState("Place Order");
   const {
     register,
     handleSubmit,
@@ -35,11 +37,12 @@ export default function CheckoutForm({
   } = useForm<OrderFormType>({
     resolver: zodResolver(OrderSchema),
   });
+  const router = useRouter();
 
   // --------------------
   // Submit Handler
   // --------------------
-  const onSubmit = (data: OrderFormType) => {
+  const onSubmit = async (data: OrderFormType) => {
     const orderObj = {
       items: orderedItems,
       buyerInfo: {
@@ -54,8 +57,15 @@ export default function CheckoutForm({
     };
 
     try {
-      const res = sendOrders(orderObj);
-    } catch (err) {}
+      const res = await sendOrders(orderObj, setOrderText);
+      console.log("order res in order button", res);
+      if (res.ok) {
+        setOrderText("succeed");
+        router.push("/user/orders");
+      }
+    } catch (err) {
+      setOrderText("Failed");
+    }
   };
 
   return (
@@ -139,7 +149,7 @@ export default function CheckoutForm({
           type="submit"
           className="mt-3 bg-blue-600 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-blue-500  focus:scale-95 transition-all"
         >
-          Place Order
+          {orderText}
         </button>
       </form>
     </section>

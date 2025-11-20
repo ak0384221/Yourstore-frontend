@@ -1,47 +1,94 @@
-import BuyerInfoLG from "./buyerInfoLg";
-import OrderItem from "./orderItem";
+import Link from "next/link";
+import { TOrders } from "@/types/order";
 
-export default function LargeScreenOrder() {
+export default function LargeScreenOrder({
+  items: orders,
+}: {
+  items: TOrders[];
+}) {
   return (
-    <table className="hidden md:table w-full border-collapse text-sm bg-[#181818] text-white">
-      <thead className="text-left">
-        <tr className="border-b-1">
-          <th className="p-3">Order ID</th>
-          <th className="p-3">Items</th>
-          <th className="p-3">Buyer Info</th>
-          <th className="p-3">Total</th>
-          <th className="p-3">Status</th>
-        </tr>
-      </thead>
+    <div className="w-full overflow-x-auto mt-5">
+      <table className="min-w-full table-fixed border border-gray-300 text-sm text-black ">
+        <thead className="bg-gray-100">
+          <tr className="text-left">
+            <th className="p-3 border text-center w-1/5">Order</th>
+            <th className="p-3 border text-center w-3/5 ">Items</th>
+            <th className="p-3 border text-center w-1/5 ">Buyer Info</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr className="border-b">
-          {/* Order ID */}
-          <td className="p-3 font-semibold">ORD-1001</td>
+        <tbody>
+          {orders.map((order) => (
+            <tr key={order._id} className="border-b">
+              {/* ORDER INFO */}
+              <td className="p-1 border align-top ">
+                <p className="font-semibold text-gray-900">
+                  <p className="">Order Id </p>
+                  <p className="break-all"> {order._id}</p>
+                </p>
 
-          {/* Items */}
-          <td className="p-3 border columns-2">
-            <OrderItem />
-            <OrderItem />
-            <OrderItem />
-            <OrderItem />
-          </td>
+                {/* Status */}
+                <span className="mt-1 inline-block bg-green-100 text-green-700 text-xs px-2 py-1 rounded">
+                  {order.orderStatus}
+                </span>
 
-          {/* Buyer Info */}
-          <BuyerInfoLG />
+                {/* Buttons */}
+                <div className="flex flex-wrap gap-1 mt-3 ">
+                  <button className="bg-blue-400 text-white border px-2 py-1 w-max rounded text-xs hover:bg-green-500">
+                    update
+                  </button>
+                </div>
+              </td>
 
-          {/* Total */}
-          <td className="p-3 font-semibold">$249.97</td>
+              {/* ITEMS LIST */}
+              <td className="p-1 border align-top">
+                {order.items.map((item, idx) => (
+                  <div key={idx} className="mb-2 md:flex gap-3">
+                    <div className="">
+                      <Link
+                        href={`/product/${item.productId}`}
+                        className=" font-bold hover:underline "
+                      >
+                        {item.name}
+                      </Link>
+                    </div>
 
-          {/* Status */}
-          <td className="p-3">
-            <div className="bg-green-100 text-green-600 px-2 py-1 rounded text-xs w-max">
-              Delivered
-            </div>
-            <button className="border p-1 px-2 my-2">forward</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                    <div className="">
+                      × {item.quantity} =
+                      {item.basePrice !== item.finalPrice && (
+                        <span className="line-through text-gray-500 text-xs mx-2">
+                          ${item.basePrice.toFixed(2)}
+                        </span>
+                      )}
+                      <span className="text-green-600 font-semibold text-sm">
+                        ${item.finalPrice.toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+                <hr />
+                <p className="font-bold text-lg text-green-600 mt-2 text-center">
+                  ${order.totalAmount.toFixed(2)}
+                </p>
+                <p className="text-xs text-red-600">
+                  shipping charge 100 is included
+                </p>
+              </td>
+
+              {/* BUYER INFO */}
+              <td className="p-1 border align-top text-xs leading-5">
+                <p className="font-medium">{order.buyerInfo.name}</p>
+                <p>{order.buyerInfo.email}</p>
+                <p>{order.buyerInfo.phone}</p>
+                <p>{order.buyerInfo.location}</p>
+                <p className="mt-1 font-medium text-gray-700">
+                  {order.paymentMethod}
+                </p>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

@@ -1,4 +1,3 @@
-import next from "next";
 import { fetchFromApi } from "./fetchFromApi";
 import { BASE_URL } from "@/utils/baseApi";
 

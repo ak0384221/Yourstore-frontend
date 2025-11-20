@@ -36,9 +36,9 @@ export type TProduct = {
 /* Sub Types                          */
 /* ---------------------------------- */
 
-interface ProductImage {
+export interface ProductImage {
   url: string;
-  alt?: string;
+  alt: string;
 }
 
 interface Variant {

@@ -1,7 +1,9 @@
-export default async function Store() {
+export default function Store() {
   return (
     <>
-      <h1>in dev</h1>
+      <h1 className="text-4xl font-bold text-center my-15 text-neutral-700">
+        Store Is <br /> In Production
+      </h1>
     </>
   );
 }

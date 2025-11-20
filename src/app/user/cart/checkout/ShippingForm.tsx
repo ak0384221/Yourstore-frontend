@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { sendOrders } from "@/utils/product/mutations/sendOrders";
+import { TOrderItem, TOrders } from "@/types/order";
 
 // --------------------
 // Zod Schema
@@ -24,7 +25,7 @@ export default function CheckoutForm({
   orderedItems,
   total,
 }: {
-  orderedItems: any[];
+  orderedItems: TOrderItem[];
   total: number;
 }) {
   const {
@@ -39,7 +40,6 @@ export default function CheckoutForm({
   // Submit Handler
   // --------------------
   const onSubmit = (data: OrderFormType) => {
-    console.log("hello");
     const orderObj = {
       items: orderedItems,
       buyerInfo: {
@@ -55,12 +55,7 @@ export default function CheckoutForm({
 
     try {
       const res = sendOrders(orderObj);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-
-    console.log("FINAL ORDER OBJ →", orderObj);
+    } catch (err) {}
   };
 
   return (
@@ -72,7 +67,7 @@ export default function CheckoutForm({
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         {/* Name */}
         <div className="flex flex-col gap-1">
-          <label className="text-sm text-gray-700">Full Name</label>
+          <label className="text-sm text-gray-700">Who will receive ?</label>
           <input
             type="text"
             placeholder="Ayaan"
@@ -142,7 +137,7 @@ export default function CheckoutForm({
         {/* Button */}
         <button
           type="submit"
-          className="mt-3 bg-blue-600 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-blue-500 transition"
+          className="mt-3 bg-blue-600 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-blue-500  focus:scale-95 transition-all"
         >
           Place Order
         </button>

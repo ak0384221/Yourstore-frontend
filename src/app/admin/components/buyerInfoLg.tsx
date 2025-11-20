@@ -1,11 +1,19 @@
-export default function BuyerInfoLG() {
+import { TBuyerInfo } from "@/types/order";
+
+export default function BuyerInfoLG({
+  buyer,
+  payment,
+}: {
+  buyer: TBuyerInfo;
+  payment: string;
+}) {
   return (
-    <td className="p-3">
-      <div className="font-medium">Ayaan Khan</div>
-      <div className="text-xs text-gray-200">ayaan@example.com</div>
-      <div className="text-xs text-gray-200">+880 1234 567890</div>
-      <div className="text-xs text-gray-200">Cash on Delivery</div>
-      <div className="text-xs text-gray-200">Dhaka, Bangladesh</div>
-    </td>
+    <div className="p-3">
+      <div className="font-medium">{buyer?.name}</div>
+      <div className="text-xs ">{buyer?.email}</div>
+      <div className="text-xs ">{buyer?.phone}</div>
+      <div className="text-xs ">{buyer?.location}</div>
+      <div className="text-xs ">{payment}</div>
+    </div>
   );
 }

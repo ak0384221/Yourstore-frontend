@@ -6,6 +6,7 @@ import {
   calculateTotalPrice,
 } from "@/utils/product/mutations/pricingFunctions";
 import CheckoutForm from "./ShippingForm";
+import { TOrderItem } from "@/types/order";
 
 export default async function Checkout() {
   const response: TCartResponse = await fetchCartItem();
@@ -27,8 +28,10 @@ export default async function Checkout() {
   }
   const orderSummary = calculateTotalPrice(items);
   const total = calculateTotalAmount(orderSummary);
+
   const orderedItems = items.map((item) => {
-    const orders = {
+    const orders: TOrderItem = {
+      _id: item.product._id,
       productId: item.product.productId,
       images: item.product.images,
       name: item.product.name,
@@ -39,14 +42,12 @@ export default async function Checkout() {
       basePrice: item.product.basePrice,
       discountPercent: item.product.discountPercent,
       salePercent: item.product.salePercent,
-
       finalPrice: item.product.finalPrice,
       quantity: item.quantity,
       totalPrice: item.finalAmount,
     };
     return orders;
   });
-  console.log("server comp", orderedItems);
 
   return (
     <>

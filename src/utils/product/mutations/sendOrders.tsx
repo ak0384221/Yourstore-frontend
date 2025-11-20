@@ -3,6 +3,5 @@ import { sendPostReq } from "./sendPostReq";
 
 export async function sendOrders(orderObj: any) {
   const response = await sendPostReq(`${BASE_URL}/api/order`, orderObj);
-  console.log("res", response);
   return response;
 }

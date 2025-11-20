@@ -76,6 +76,9 @@ export default function HeroSection() {
               src={slide.img}
               alt={slide.title}
               fill
+              unoptimized
+              placeholder="blur"
+              blurDataURL="https://wallpapers.com/images/featured/black-blur-hq7a00zheiibyvf0.webp"
               priority={index === 0}
               className="object-cover opacity-90"
             />

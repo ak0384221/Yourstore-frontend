@@ -1,15 +1,13 @@
-import RemoveCartItem from "@/atomic-components/removeFromCartButton";
 import { fetchCartItem } from "@/utils/cart/fetchCartItem";
-import Image from "next/image";
 import Link from "next/link";
 import { TCartResponse } from "@/types/cartItem";
 import {
   calculateTotalAmount,
   calculateTotalPrice,
-  finalAmount,
-  totalDiscount,
 } from "@/utils/product/mutations/pricingFunctions";
 import Fetchfailed from "@/error/fetchFailed";
+import ProductInCarts from "@/micro-components/productsShowcaseInCart";
+
 export default async function Cart() {
   const response: TCartResponse = await fetchCartItem();
   const { data: items } = response;
@@ -30,7 +28,6 @@ export default async function Cart() {
   }
 
   const orderSummary = calculateTotalPrice(items);
-
   const total = calculateTotalAmount(orderSummary);
 
   return (
@@ -42,75 +39,7 @@ export default async function Cart() {
           </h1>
 
           {items.map((item) => {
-            return (
-              <div
-                key={item._id}
-                className="flex flex-col relative md:flex-row items-center justify-between  rounded-xl p-4 shadow-md border border-gray-300 hover:bg-[#ebf4f5] transition-colors"
-              >
-                <RemoveCartItem id={item._id} />
-                <div className="flex items-center gap-5 w-full md:w-auto ">
-                  <div className="relative w-28 h-28 rounded-md overflow-hidden">
-                    <Image
-                      src={item.product.images[0].url || "/placeholder.png"}
-                      alt={item.product.name}
-                      fill
-                      className="object-cover bg-[#e3f1f5]"
-                    />
-                  </div>
-
-                  <div className="flex flex-col gap-1">
-                    <h2 className="text-lg font-semibold">
-                      {item.product.name}
-                    </h2>
-                    <p className="text-sm text-gray-700">
-                      ProductID: {item.product.productId}
-                    </p>
-
-                    <p className="text-sm">
-                      Size:{" "}
-                      <span className="text-black font-medium">
-                        {item.size || "—"}
-                      </span>
-                    </p>
-                    <p className="text-sm">
-                      Color:{" "}
-                      <span className="inline-block  ml-1">{item.color}</span>
-                    </p>
-                    <p className="text-sm">Qty: {item.quantity}</p>
-                  </div>
-                </div>
-
-                <div className="mt-3 md:mt-0 text-right  ">
-                  <p className="text-sm text-black line-through">
-                    $ {item.product.basePrice}
-                  </p>
-                  <p>
-                    $
-                    {finalAmount(
-                      item.product.basePrice,
-                      totalDiscount(
-                        item.product.discountPercent,
-                        item.product.salePercent
-                      )
-                    ).toFixed(2)}{" "}
-                    <span className="text-green-700 font-black text-sm">x</span>{" "}
-                    <span>{item.quantity}</span>
-                  </p>
-
-                  <p className="font-bold text- text-green-500  ">
-                    ${item.finalAmount.toFixed(2)}
-                  </p>
-
-                  <p className="text-xs text-red-700">
-                    {totalDiscount(
-                      item.product.discountPercent,
-                      item.product.salePercent
-                    )}
-                    % off
-                  </p>
-                </div>
-              </div>
-            );
+            return <ProductInCarts key={item._id} item={item} />;
           })}
         </div>
 

@@ -1,5 +1,5 @@
 import { TCartItem } from "@/types/cartItem";
-import { TorderSummary } from "@/types/order";
+import { TOrderSummary } from "@/types/order";
 
 function totalDiscount(
   regularDiscount: number = 0,
@@ -36,7 +36,7 @@ function calculateTotalPrice(items: TCartItem[]) {
   });
 }
 
-function calculateTotalAmount(items: TorderSummary[]) {
+function calculateTotalAmount(items: TOrderSummary[]) {
   return items.reduce((total, item) => {
     return total + item.finalPrice * item.qty;
   }, 0);

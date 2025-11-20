@@ -13,13 +13,11 @@ export default function UserLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="bg-rootBg">
-        <div className="h-[15svh] 0 relative">
-          <Header />
-        </div>
-        <div>{children}</div>
-      </body>
-    </html>
+    <>
+      <div className="h-[15svh] 0 relative">
+        <Header />
+      </div>
+      <div>{children}</div>
+    </>
   );
 }

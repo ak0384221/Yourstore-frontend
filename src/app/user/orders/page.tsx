@@ -9,14 +9,14 @@ export default async function Orders() {
   const { ok } = response;
 
   if (!ok) {
-    return <Fetchfailed fetchcase="Cart" />;
+    return <Fetchfailed fetchcase="Order" />;
   }
 
   if (items.length === 0) {
     return (
       <div>
         <p className="text-5xl text-center py-10 text-neutral-700 font-extrabold">
-          cart is empty
+          Order is empty
         </p>
       </div>
     );

@@ -45,7 +45,7 @@ export default function ProductInCarts({ item }: { item: TGetCartItem }) {
 
       <div className="mt-3 md:mt-0 text-right  ">
         <p className="text-sm text-black line-through">
-          $ {item.product.basePrice}
+          $ {item.product.basePrice?.toFixed(2)}
         </p>
         <p>
           $
@@ -60,13 +60,15 @@ export default function ProductInCarts({ item }: { item: TGetCartItem }) {
           <span>{item.quantity}</span>
         </p>
 
-        <p className="font-bold text- text-green-500  ">${item.finalAmount}</p>
+        <p className="font-bold text- text-green-500  ">
+          ${item.finalAmount?.toFixed(2)}
+        </p>
 
         <p className="text-xs text-red-700">
           {totalDiscount(
             item.product.discountPercent,
             item.product.salePercent
-          )}
+          )?.toFixed(2)}
           % off
         </p>
       </div>

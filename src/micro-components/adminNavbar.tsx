@@ -10,9 +10,14 @@ export default function AdminNavbar() {
               Orders
             </Link>
           </li>
-          <li className=" w-1/2  hover:bg-white hover:text-black transition-colors rounded-r-4xl text-center h-full flex justify-center items-center">
+          <li className=" w-1/2  hover:bg-white hover:text-black transition-colors  text-center h-full flex justify-center items-center">
             <Link className=" w-full h-full py-3" href={"/admin/store"}>
               store
+            </Link>{" "}
+          </li>
+          <li className=" w-1/2  hover:bg-white hover:text-black transition-colors rounded-r-4xl text-center h-full flex justify-center items-center">
+            <Link className=" w-full h-full py-3" href={"/user"}>
+              User page
             </Link>{" "}
           </li>
         </ul>

@@ -54,7 +54,7 @@ export default async function Cart() {
                 return (
                   <div key={item._id} className="flex justify-between text-sm ">
                     <span>{item.product.name}</span>
-                    <span>{item.finalAmount} $</span>
+                    <span>{item.finalAmount?.toFixed(2)} $</span>
                   </div>
                 );
               })}

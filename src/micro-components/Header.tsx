@@ -42,21 +42,27 @@ export default async function Header() {
               </li>
               {/* Cart */}
               <li title="cart" className=" cursor-pointer relative">
-                <Link href="/user/cart" className="relative">
+                <Link href="/user/cart" className="">
                   <FiShoppingCart className="text-2xl hover:text-gray-400 text-white transition-colors" />
                 </Link>
               </li>
               <li>
                 <MobileMenu />
               </li>
-              {/* Sign In */}
               {/* <li className="flex text-[15px]  ">
                 <button className="p-2 px-4 text-sm font-medium bg-pink-600 text-white rounded-2xl  cursor-pointer hover:bg-black hover:text-white transition-colors">
                   Sign In
                 </button>
               </li> */}
+              <li className="flex text-[15px]  ">
+                <Link
+                  href={"/admin"}
+                  className="p-2 px-4 text-sm font-medium bg-pink-600 text-white rounded-2xl  cursor-pointer hover:bg-red-500 hover:text-white transition-colors"
+                >
+                  Admin
+                </Link>
+              </li>
               {/* Mobile menu toggle */}
-              <li> </li>
             </ul>
           </div>
         </div>

@@ -75,15 +75,13 @@ export default async function Checkout() {
             {/* Shipping Charge */}
             <div className="flex justify-between text-sm  pt-3">
               <span className="text-gray-700 font-medium">Shipping Charge</span>
-              <span className="text-gray-700 font-semibold">100 $</span>
+              <span className="text-gray-700 font-semibold">5 $</span>
             </div>
 
             {/* Total */}
             <div className="flex justify-between text-lg font-semibold text-black  pt-3">
               <span className="text-red-500">Total</span>
-              <span className="text-green-600">
-                {(total + 100).toFixed(2)} $
-              </span>
+              <span className="text-green-600">{(total + 5).toFixed(2)} $</span>
             </div>
           </div>
 

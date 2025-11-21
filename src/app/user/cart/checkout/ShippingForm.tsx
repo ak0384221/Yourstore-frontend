@@ -14,7 +14,7 @@ const OrderSchema = z.object({
   name: z.string().min(4, "Name must be at least 4 characters"),
   phone: z
     .string()
-    .min(8, "Phone number must contain numbers")
+    .min(11, "Phone number must contain numbers")
     .regex(/^[0-9]+$/, "Phone must contain only digits"),
   email: z.string().email("Invalid email address"),
   location: z.string().min(5, "Address must be at least 5 characters"),
@@ -51,8 +51,8 @@ export default function CheckoutForm({
         email: data.email,
         location: data.location,
       },
-      deliveryCharge: 100,
-      totalAmount: total + 100,
+      deliveryCharge: 5,
+      totalAmount: total + 5,
       paymentMethod: "cash on delivery",
     };
 
@@ -80,7 +80,7 @@ export default function CheckoutForm({
           <label className="text-sm text-gray-700">Who will receive ?</label>
           <input
             type="text"
-            placeholder="Ayaan"
+            placeholder="John Doe"
             {...register("name")}
             className="bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
@@ -92,7 +92,7 @@ export default function CheckoutForm({
           <label className="text-sm text-gray-700">Phone Number</label>
           <input
             type="tel"
-            placeholder="01986230723"
+            placeholder="019........"
             {...register("phone")}
             className="bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />

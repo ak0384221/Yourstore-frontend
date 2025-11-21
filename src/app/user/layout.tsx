@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import Header from "@/micro-components/newNav";
+import Header from "@/micro-components/Header";
 
 export const metadata: Metadata = {
   title: "Yourstore | Buy something..",
-  description: "Send a gift",
+  description: "Buy what you like ",
 };
 
 export default function UserLayout({

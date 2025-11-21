@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { sendOrders } from "@/utils/product/mutations/sendOrders";
-import { TOrderItem, TOrders } from "@/types/order";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { TPostOrderItem } from "@/types/order";
 // --------------------
 // Zod Schema
 // --------------------
@@ -26,7 +26,7 @@ export default function CheckoutForm({
   orderedItems,
   total,
 }: {
-  orderedItems: TOrderItem[];
+  orderedItems: TPostOrderItem[];
   total: number;
 }) {
   const [orderText, setOrderText] = useState("Place Order");

@@ -1,8 +1,6 @@
-import { TOrders } from "@/types/order";
-
-async function sendPostReq(
+async function sendPostReq<TBodyObj>(
   url: string,
-  bodyObj: TOrders,
+  bodyObj: TBodyObj,
   setState?: React.Dispatch<React.SetStateAction<string>>
 ) {
   try {

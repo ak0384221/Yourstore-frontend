@@ -1,12 +1,12 @@
 import RemoveCartItem from "@/atomic-components/removeFromCartButton";
-import { TCartItem } from "@/types/cartItem";
+import { TGetCartItem } from "@/types/cartItem";
 import {
   finalAmount,
   totalDiscount,
 } from "@/utils/product/mutations/pricingFunctions";
 import Image from "next/image";
 
-export default function ProductInCarts({ item }: { item: TCartItem }) {
+export default function ProductInCarts({ item }: { item: TGetCartItem }) {
   return (
     <div
       key={item._id}
@@ -55,14 +55,12 @@ export default function ProductInCarts({ item }: { item: TCartItem }) {
               item.product.discountPercent,
               item.product.salePercent
             )
-          ).toFixed(2)}{" "}
+          ).toFixed(2)}
           <span className="text-green-700 font-black text-sm">x</span>{" "}
           <span>{item.quantity}</span>
         </p>
 
-        <p className="font-bold text- text-green-500  ">
-          ${item.finalAmount.toFixed(2)}
-        </p>
+        <p className="font-bold text- text-green-500  ">${item.finalAmount}</p>
 
         <p className="text-xs text-red-700">
           {totalDiscount(

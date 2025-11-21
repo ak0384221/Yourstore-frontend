@@ -1,8 +1,8 @@
 import BuyerInfoLG from "@/app/admin/components/buyerInfoLg";
 import OrderItem from "@/app/admin/components/orderItem";
-import { TOrders } from "@/types/order";
+import { TGetOrders } from "@/types/order";
 
-export default function MobileOrder({ item: order }: { item: TOrders }) {
+export default function MobileOrder({ item: order }: { item: TGetOrders }) {
   return (
     <>
       <div className=" space-y-4">

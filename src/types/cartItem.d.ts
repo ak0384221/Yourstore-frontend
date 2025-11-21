@@ -1,18 +1,31 @@
-import { TProduct } from "./product";
+import { TGetProduct } from "./product";
 
-export type TCartItem = {
-  _id: string;
-  product: TProduct;
+export type TPostCartItem = {
+  product: string;
   productId: string;
   quantity: number;
   color: string;
   finalAmount: number;
-  size: "XS" | "S" | "M" | "L" | "XL" | "2XL" | "3XL";
+  size: string | number;
+};
+export type TGetCartItem = {
+  _id: string;
+  product: TGetProduct;
+  productId: string;
+  quantity: number;
+  color: string;
+  finalAmount: number;
+  size: string | number;
   addedToCart: string;
 };
 
-export type TCartResponse = {
-  data: TCartItem[] | [];
+export type TGetCartResponse = {
+  data: TGetCartItem[] | [];
+  ok: boolean;
+  error: null | string;
+};
+export type PostCartResponse = {
+  data: TPostCartItem[] | [];
   ok: boolean;
   error: null | string;
 };

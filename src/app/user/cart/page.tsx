@@ -1,6 +1,6 @@
 import { fetchCartItem } from "@/utils/cart/fetchCartItem";
 import Link from "next/link";
-import { TCartResponse } from "@/types/cartItem";
+import { TGetCartResponse } from "@/types/cartItem";
 import {
   calculateTotalAmount,
   calculateTotalPrice,
@@ -9,7 +9,7 @@ import Fetchfailed from "@/error/fetchFailed";
 import ProductInCarts from "@/micro-components/productsShowcaseInCart";
 
 export default async function Cart() {
-  const response: TCartResponse = await fetchCartItem();
+  const response: TGetCartResponse = await fetchCartItem();
   const { data: items } = response;
   const { ok } = response;
 
@@ -54,7 +54,7 @@ export default async function Cart() {
                 return (
                   <div key={item._id} className="flex justify-between text-sm ">
                     <span>{item.product.name}</span>
-                    <span>{item.finalAmount.toFixed(2)} $</span>
+                    <span>{item.finalAmount} $</span>
                   </div>
                 );
               })}

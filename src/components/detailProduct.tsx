@@ -1,13 +1,13 @@
 import ProductsPcsAdd from "@/atomic-components/addProductsQuanity";
 import TextStyleInItem from "@/atomic-components/textStyleOfItem";
-import { TProduct } from "@/types/product";
+import { TGetProduct } from "@/types/product";
 import {
   finalAmount,
   totalDiscount,
 } from "@/utils/product/mutations/pricingFunctions";
 import Image from "next/image";
 
-export default function ProductDetails({ item }: { item: TProduct }) {
+export default function ProductDetails({ item }: { item: TGetProduct }) {
   return (
     <div
       className="mx-auto p-4 md:p-8 flex

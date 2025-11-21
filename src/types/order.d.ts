@@ -1,28 +1,20 @@
 import { ProductImage } from "./product";
 
-export type TOrders = {
-  _id: string;
-  items: TOrderItem[];
+export type TPostOrders = {
+  items: TPostOrderItem[];
   buyerInfo: TBuyerInfo;
   totalAmount: number;
   deliveryCharge: number;
   paymentMethod: "cash on delivery" | "online" | string;
-  orderStatus:
-    | "placed"
-    | "processing"
-    | "shipped"
-    | "delivered"
-    | "cancelled"
-    | string;
 };
 
-export type TOrderItem = {
+export type TPostOrderItem = {
   _id: string;
   productId: string;
   images: ProductImage[]; // assuming images is an array of strings (URLs)
   name: string;
   category: string;
-  size: string;
+  size: string | number;
   brand: string;
   color: string;
   basePrice: number;
@@ -33,12 +25,22 @@ export type TOrderItem = {
   totalPrice: number;
 };
 
+export type TGetOrders = {
+  _id: string;
+  items: TPostOrderItem[];
+  buyerInfo: TBuyerInfo;
+  totalAmount: number;
+  deliveryCharge: number;
+  paymentMethod: "cash on delivery" | "online" | string;
+  orderStatus: "placed" | "confirmed" | "shipped" | "delivered";
+  orderDate: string;
+};
+
 export type TBuyerInfo = {
   name: string;
   phone: string;
   email: string;
   location: string;
-  _id: string;
 };
 export type TOrderSummary = {
   Pname: string;
@@ -47,8 +49,8 @@ export type TOrderSummary = {
   qty: number;
 };
 
-export type TOrderResponse = {
-  data: TOrders[];
+export type TGetOrderResponse = {
+  data: TGetOrders[];
   error: null | string;
   ok: boolean;
 };

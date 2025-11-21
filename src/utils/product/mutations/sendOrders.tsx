@@ -1,9 +1,10 @@
 import { BASE_URL } from "@/utils/baseApi";
 import { sendPostReq } from "./sendPostReq";
-import { TOrders } from "@/types/order";
+import { TPostOrders } from "@/types/order";
+import { TPostCartItem } from "@/types/cartItem";
 
 export async function sendOrders(
-  orderObj: TOrders,
+  orderObj: TPostOrders | TPostCartItem,
   setState?: React.Dispatch<React.SetStateAction<string>>
 ) {
   const response = await sendPostReq(

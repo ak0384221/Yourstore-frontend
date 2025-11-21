@@ -1,15 +1,15 @@
 import Fetchfailed from "@/error/fetchFailed";
-import { TCartResponse } from "@/types/cartItem";
+import { TGetCartResponse } from "@/types/cartItem";
 import { fetchCartItem } from "@/utils/cart/fetchCartItem";
 import {
   calculateTotalAmount,
   calculateTotalPrice,
 } from "@/utils/product/mutations/pricingFunctions";
 import CheckoutForm from "./ShippingForm";
-import { TOrderItem } from "@/types/order";
+import { TPostOrderItem } from "@/types/order";
 
 export default async function Checkout() {
-  const response: TCartResponse = await fetchCartItem();
+  const response: TGetCartResponse = await fetchCartItem();
   const { data: items } = response;
   const { ok } = response;
 
@@ -30,7 +30,7 @@ export default async function Checkout() {
   const total = calculateTotalAmount(orderSummary);
 
   const orderedItems = items.map((item) => {
-    const orders: TOrderItem = {
+    const orders: TPostOrderItem = {
       _id: item.product._id,
       productId: item.product.productId,
       images: item.product.images,

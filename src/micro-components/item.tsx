@@ -1,11 +1,11 @@
 import TextStyleInItem from "@/atomic-components/textStyleOfItem";
 import Tooltip from "@/atomic-components/tooltip";
-import { TProduct } from "@/types/product";
+import { TGetProduct } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
 //--------------------------------------//
 
-export default function Item({ item }: { item: TProduct }) {
+export default function Item({ item }: { item: TGetProduct }) {
   return (
     <Link
       className="w-4/5 h-[45svh] bg-white border border-[#d3d1d1] hover:bg-[#eef5f4]

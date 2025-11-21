@@ -1,4 +1,4 @@
-import { TCartItem } from "@/types/cartItem";
+import { TGetCartItem } from "@/types/cartItem";
 import { TOrderSummary } from "@/types/order";
 
 function totalDiscount(
@@ -22,7 +22,7 @@ function finalAmount(basePrice: number, totalDiscount: number): number {
   return Number(basePrice - discounted);
 }
 
-function calculateTotalPrice(items: TCartItem[]) {
+function calculateTotalPrice(items: TGetCartItem[]) {
   return items.map((item) => {
     return {
       Pname: item.product.name,

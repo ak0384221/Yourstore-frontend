@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { TOrders } from "@/types/order";
+import { TGetOrders } from "@/types/order";
 
 export default function LargeScreenOrder({
   items: orders,
 }: {
-  items: TOrders[];
+  items: TGetOrders[];
 }) {
   return (
     <div className="w-full overflow-x-auto mt-5">
@@ -22,10 +22,10 @@ export default function LargeScreenOrder({
             <tr key={order._id} className="border-b">
               {/* ORDER INFO */}
               <td className="p-1 border align-top ">
-                <p className="font-semibold text-gray-900">
+                <div className="font-semibold text-gray-900">
                   <p className="">Order Id </p>
                   <p className="break-all"> {order._id}</p>
-                </p>
+                </div>
 
                 {/* Status */}
                 <span className="mt-1 inline-block bg-green-100 text-green-700 text-xs px-2 py-1 rounded">
@@ -44,7 +44,7 @@ export default function LargeScreenOrder({
               <td className="p-1 border align-top">
                 {order.items.map((item, idx) => (
                   <div key={idx} className="mb-2 md:flex gap-3">
-                    <div className="">
+                    <div>
                       <Link
                         href={`/product/${item.productId}`}
                         className=" font-bold hover:underline "
@@ -53,7 +53,7 @@ export default function LargeScreenOrder({
                       </Link>
                     </div>
 
-                    <div className="">
+                    <div>
                       × {item.quantity} =
                       {item.basePrice !== item.finalPrice && (
                         <span className="line-through text-gray-500 text-xs mx-2">
@@ -67,8 +67,8 @@ export default function LargeScreenOrder({
                   </div>
                 ))}
                 <hr />
-                <p className="font-bold text-lg text-green-600 mt-2 text-center">
-                  ${order.totalAmount.toFixed(2)}
+                <p className="font-bold text-lg  mt-2 text-center">
+                  Total : ${order.totalAmount.toFixed(2)}
                 </p>
                 <p className="text-xs text-red-600">
                   shipping charge 100 is included

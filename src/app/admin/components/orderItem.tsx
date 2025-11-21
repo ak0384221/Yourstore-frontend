@@ -1,7 +1,7 @@
-import { TOrderItem } from "@/types/order";
+import { TPostOrderItem } from "@/types/order";
 import Image from "next/image";
 
-export default function OrderItem({ item }: { item: TOrderItem }) {
+export default function OrderItem({ item }: { item: TPostOrderItem }) {
   return (
     <div className="flex gap-3  w-max p-2 border border-neutral-500  ">
       <div className="w-12 h-12 bg-gray-200 text-black rounded-md relative">

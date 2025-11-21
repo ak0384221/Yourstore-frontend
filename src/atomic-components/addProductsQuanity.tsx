@@ -3,14 +3,15 @@ import { BASE_URL } from "@/utils/baseApi";
 import { useState } from "react";
 import { IoAddCircle } from "react-icons/io5";
 import { BiSolidMinusCircle } from "react-icons/bi";
-import { TProduct } from "@/types/product";
+import { TGetProduct } from "@/types/product";
 import {
   finalAmount,
   totalDiscount,
 } from "@/utils/product/mutations/pricingFunctions";
 import { sendPostReq } from "@/utils/product/mutations/sendPostReq";
+import { TPostCartItem } from "@/types/cartItem";
 
-export default function ProductsPcsAdd({ item }: { item: TProduct }) {
+export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
   const [productsQuantity, setProductQuantity] = useState(1);
   const [cartMessage, setCartMessage] = useState("Add to cart");
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -25,16 +26,12 @@ export default function ProductsPcsAdd({ item }: { item: TProduct }) {
   }
 
   function finalprice() {
-    const singleItemPrice: number | string = finalAmount(
+    const singleItemPrice: number = finalAmount(
       item.basePrice,
       totalDiscount(item.discountPercent, item.salePercent)
     );
-    if (typeof singleItemPrice === "number") {
-      const finalPrice = singleItemPrice * productsQuantity;
-      return finalPrice;
-    } else {
-      return "price calculation error";
-    }
+    const finalPrice = singleItemPrice * productsQuantity;
+    return finalPrice;
   }
   const final = finalprice();
 
@@ -43,7 +40,7 @@ export default function ProductsPcsAdd({ item }: { item: TProduct }) {
       setCartMessage("Select all options");
       return;
     }
-    const cartObj = {
+    const cartObj: TPostCartItem = {
       product: item._id,
       productId: item.productId,
       quantity: productsQuantity,

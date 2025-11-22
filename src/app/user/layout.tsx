@@ -14,7 +14,7 @@ export default function UserLayout({
 }>) {
   return (
     <>
-      <div className="h-[15svh] 0 relative">
+      <div className="h-[15svh] bg-black relative">
         <Header />
       </div>
       <div>{children}</div>

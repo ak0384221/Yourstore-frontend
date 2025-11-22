@@ -1,3 +1,4 @@
+import Breadcrumb from "@/atomic-components/BreadCrumbs";
 import EmptyData from "@/error/emptyData";
 import Fetchfailed from "@/error/fetchFailed";
 import Item from "@/micro-components/item";
@@ -61,6 +62,11 @@ export default async function CategoryPage({
       <h1 className="text-center text-black my-7 text-4xl capitalize font-bold ">
         {name}
       </h1>
+      <div className=" px-10 mb-5">
+        {" "}
+        <Breadcrumb categoryName={name} />
+      </div>
+
       {data.length > 0 && (
         <div className="w-[97svw] mx-auto ">
           <Suspense fallback={"loading"}>

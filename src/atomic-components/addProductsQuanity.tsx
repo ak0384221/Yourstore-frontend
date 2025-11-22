@@ -37,7 +37,7 @@ export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
 
   function handleCart() {
     if (!selectedSize || !selectedColor) {
-      setCartMessage("Select all options");
+      setCartMessage("select size & color");
       return;
     }
     const cartObj: TPostCartItem = {
@@ -56,30 +56,47 @@ export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
       {/* Variants Selector */}
       {item.variants && item.variants.length > 0 && (
         <div className="flex flex-col gap-4">
-          <h3 className="text-lg font-semibold">Choose Options</h3>
+          <h3 className="text-lg font-semibold">Select size & color</h3>
 
           {item.variants.map((variant, index: number) => (
-            <div key={index} className="flex flex-col gap-3">
-              <span className="font-medium capitalize">
-                Size: {variant.size}
-              </span>
+            <div key={index} className="space-y-2">
+              {/* Size Radio */}
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="size"
+                  value={variant.size}
+                  checked={selectedSize === variant.size}
+                  onChange={() => setSelectedSize(variant.size)}
+                  className="accent-black"
+                />
+                <span className="font-medium">{variant.size}</span>
+              </label>
+
+              {/* Color Radios */}
               <div className="flex gap-3">
                 {variant.colors.map((color, idx: number) => (
-                  <button
+                  <label
                     key={idx}
-                    onClick={() => {
-                      setSelectedSize(variant.size);
-                      setSelectedColor(color.colorName);
-                    }}
-                    className={`w-8 h-8 rounded-full border-2 transition-all ${
-                      selectedColor === color.colorName &&
-                      selectedSize === variant.size
-                        ? "scale-110 border-white"
-                        : "border-gray-500 hover:border-gray-300"
-                    }`}
-                    style={{ backgroundColor: color.colorName }}
+                    className="flex items-center gap-1 cursor-pointer"
                     title={`${color.colorName} (${color.stock} in stock)`}
-                  />
+                  >
+                    <input
+                      type="radio"
+                      name={`color-${variant.size}`}
+                      value={color.colorName}
+                      checked={
+                        selectedColor === color.colorName &&
+                        selectedSize === variant.size
+                      }
+                      onChange={() => {
+                        setSelectedSize(variant.size);
+                        setSelectedColor(color.colorName);
+                      }}
+                      className="accent-black"
+                    />
+                    <span>{color.colorName}</span>
+                  </label>
                 ))}
               </div>
             </div>
@@ -87,11 +104,18 @@ export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
         </div>
       )}
 
+      {(selectedColor || selectedSize) && (
+        <p className="text-sm text-red-600 font-bold">
+          Selected: {selectedSize ? `${selectedSize}, ` : ""}
+          {selectedColor ? selectedColor : ""}
+        </p>
+      )}
+
       {/* Quantity Selector */}
       <div className="flex items-center gap-3">
         <IoAddCircle
           onClick={productIncrement}
-          className="text-4xl cursor-pointer hover:text-gray-300"
+          className="text-4xl cursor-pointer text-blue-500 hover:text-blue-600 transition-colors"
         />
         <input
           value={productsQuantity}
@@ -101,25 +125,19 @@ export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
         />
         <BiSolidMinusCircle
           onClick={productDecrement}
-          className="text-4xl cursor-pointer hover:text-gray-300"
+          className="text-4xl cursor-pointer text-blue-500 hover:text-blue-600 transition-colors"
         />
       </div>
 
       {/* Add to Cart Button */}
       <button
         onClick={handleCart}
-        className="w-max px-8 py-3 rounded-md bg-blue-600 text-white hover:bg-blue-500 cursor-pointer  transition-all "
+        className="w-full px-2 py-3 rounded-md bg-blue-500 text-white hover:bg-blue-600 cursor-pointer  transition-all capitalize "
       >
         {cartMessage}
       </button>
 
       {/* Selected Details */}
-      {(selectedColor || selectedSize) && (
-        <p className="text-sm text-gray-400">
-          Selected: {selectedSize ? `${selectedSize}, ` : ""}
-          {selectedColor ? selectedColor : ""}
-        </p>
-      )}
     </div>
   );
 }

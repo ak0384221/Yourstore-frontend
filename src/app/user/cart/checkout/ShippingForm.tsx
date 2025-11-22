@@ -82,7 +82,7 @@ export default function CheckoutForm({
             type="text"
             placeholder="John Doe"
             {...register("name")}
-            className="bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className=" border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <p className="text-xs text-red-600 min-h-4">{errors.name?.message}</p>
         </div>

@@ -27,7 +27,7 @@ export default async function Orders() {
       <h1 className="text-center text-4xl font-extrabold capitalize py-5">
         orders
       </h1>
-      <div className="px-5">
+      <div className="px-5 space-y-5">
         {items.map((item) => {
           return <ProductInOrder key={item._id} item={item} />;
         })}

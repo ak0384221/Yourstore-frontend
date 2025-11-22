@@ -5,8 +5,8 @@ import { TGetOrders } from "@/types/order";
 export default function MobileOrder({ item: order }: { item: TGetOrders }) {
   return (
     <>
-      <div className=" space-y-4">
-        <div className="rounded-lg p-4 shadow-sm space-y-3 text-black">
+      <div>
+        <div className="rounded-lg p-4 shadow-md border border-neutral-200  text-black ">
           {/* Header: Order ID + Status + Forward Button */}
           <div className=" flex gap-2  w-max">
             <h3 className="font-semibold text-sm">Order ID : {order?._id} </h3>
@@ -22,22 +22,24 @@ export default function MobileOrder({ item: order }: { item: TGetOrders }) {
           <BuyerInfoLG buyer={order.buyerInfo} payment={order.paymentMethod} />
 
           {/* Items */}
-          <div className="mt-3  pt-2">
-            <p className="text-xl  font-semibold mb-8">Items:</p>
+          <div>
+            <p className="text-xl  font-semibold mb-5">Items:</p>
 
-            <div className=" gap-2 flex justify-center flex-wrap">
+            <div className=" gap-2 flex justify-start flex-wrap">
               {order.items.map((item, index) => {
                 return <OrderItem key={index} item={item} />;
               })}
             </div>
           </div>
-          <div className="mt-2 text-md text-black  p-1 capitalize flex justify-end gap-2">
+          <div className="mt-2 text-md text-black   capitalize flex gap-2  items-center">
             <p>
-              <span className="font-medium">Total:</span>{" "}
-              {order?.totalAmount.toFixed(2)}{" "}
+              <span className="font-medium">Total : </span>
+              <span className="font-extrabold text-green-600">
+                {order?.totalAmount.toFixed(2)}$
+              </span>
             </p>
-            <p className="text-green-600 font-bold">
-              (Shipping Charge {order?.deliveryCharge} tk included)
+            <p className="text-black/70 font-bold text-xs">
+              (Shipping Charge ${order?.deliveryCharge} included)
             </p>
           </div>
         </div>

@@ -51,10 +51,10 @@ export default async function Checkout() {
 
   return (
     <>
-      <div className="min-h-screen  text-black py-10 px-4 flex justify-center">
+      <div className="min-h-screen bg-white text-black py-10 px-4 flex justify-center">
         <div className="w-full max-w-4xl flex flex-col gap-8">
           {/* --- Order Summary --- */}
-          <div className="border border-neutral-300 rounded-xl p-4 bg-gray-50 flex flex-col gap-2">
+          <div className="border border-neutral-300 rounded-xl p-4 flex flex-col gap-2">
             {/* Items List */}
             <div className="flex flex-col gap-3">
               {items.map((item) => (

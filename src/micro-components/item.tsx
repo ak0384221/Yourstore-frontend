@@ -8,30 +8,78 @@ import Link from "next/link";
 export default function Item({ item }: { item: TGetProduct }) {
   return (
     <Link
-      className="w-4/5 h-[45svh] bg-white border border-[#d3d1d1] hover:bg-[#eef5f4]
-       md:h-[55svh]  md:w-[40svw] lg:w-1/4 lg:h-[45svh] xl:w-1/5 relative transition-colors "
-      href={`/user/products/${item?.productId}`}
+      href={`/user/products/${item.productId}`}
+      className="group w-4/5 md:w-[40svw] lg:w-1/4 xl:w-1/5
+  bg-white border border-gray-300 rounded-lg overflow-hidden 
+  shadow-sm hover:shadow-md transition-all relative"
     >
-      <div className="item  h-full   p-2 ">
-        <div className="pic h-[75%]  capitalize relative ">
-          <Image
-            src={item?.images[0].url}
-            width={200}
-            height={300}
-            alt="pic"
-            className="w-auto h-full mx-auto object-cover"
-          />
-        </div>
-        <section className="mt-2 px-2 h-[25%]">
-          <TextStyleInItem style="category" text={item?.category} />
-          <TextStyleInItem style="name" text={item?.name} />
-          <TextStyleInItem style="cost" text={item?.basePrice} />
-        </section>
+      {/* Image with overlays */}
+      <div className="relative  bg-gray-50">
+        <Image
+          src={item.images[0].url}
+          alt={item.name}
+          width={300}
+          height={300}
+          className="h-full w-auto mx-auto object-cover group-hover:scale-105 transition-transform"
+        />
+
+        {/* Discount Badge */}
+        {(item.discountPercent > 0 || item.salePercent > 0) && (
+          <span className="absolute top-2 right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded-md">
+            -{item.discountPercent + item.salePercent}%
+          </span>
+        )}
+
+        {/* Status Dot */}
+        <span
+          className={`absolute top-2 left-2 p-1 text-xs text-white rounded-sm
+        ${
+          item.status === "active"
+            ? "bg-green-600"
+            : item.status === "on hold"
+            ? "bg-yellow-500"
+            : "bg-gray-500"
+        }`}
+        >
+          {item.status}
+        </span>
       </div>
-      <Tooltip
-        discount={item.discountPercent}
-        saleDiscount={item.salePercent}
-      />
+
+      {/* Bottom Info */}
+      <div className="p-2 flex flex-col gap-1  ">
+        {/* Name */}
+        <h3 className="text-[13px] font-semibold line-clamp-1">{item.name}</h3>
+
+        {/* Row: Price + Rating */}
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-1">
+            <span className="text-sm font-bold text-green-700">
+              ${item.finalPrice.toFixed(2)}
+            </span>
+            <span className="text-[12px] line-through text-gray-7000">
+              ${item.basePrice.toFixed(2)}
+            </span>
+          </div>
+
+          {/* compact stars */}
+          <div className="text-[12px] text-yellow-500">
+            {"★".repeat(Math.round(item.rating?.average || 0))}
+          </div>
+        </div>
+
+        {/* Row: Category + Stock */}
+        <div className="flex justify-between items-center text-[10px]">
+          <span className="uppercase text-gray-500">{item.category}</span>
+
+          <span
+            className={
+              item.availableQuantity > 0 ? "text-green-600" : "text-red-600"
+            }
+          >
+            {item.availableQuantity > 0 ? "In stock" : "Out"}
+          </span>
+        </div>
+      </div>
     </Link>
   );
 }

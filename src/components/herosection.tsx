@@ -56,12 +56,12 @@ export default function HeroSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 10000); // auto-change every 10s
+    }, 5000); // auto-change every 10s
     return () => clearInterval(interval);
   }, [currentSlide]);
 
   return (
-    <section className="relative md:h-[85svh] h-[80svh] w-full overflow-hidden bg-black text-white  ">
+    <section className="relative md:h-[85svh] h-[85svh] w-full overflow-hidden bg-black text-white  ">
       {/* Slider container */}
       <div
         ref={sliderRef}

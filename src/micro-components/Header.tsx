@@ -25,14 +25,14 @@ export default async function Header() {
         {/* Search + Right Actions */}
         <div className="flex flex-wrap  items-center ">
           <div className="">
-            <ul className="flex items-center gap-2 md:gap-5">
-              <li>
+            <ul className="flex items-center gap-3 md:gap-5">
+              {/* <li>
                 <input
                   type="text"
                   placeholder="Search ..."
                   className="border border-[#979797] text-white text-xs md:text-md p-2 pl-4 rounded-2xl w-[40svw] md:w-[30svw] focus:outline-0 placeholder:text-sm"
                 />
-              </li>
+              </li> */}
               <li title="orders" className=" cursor-pointer ">
                 <Link href="/user/orders" className="">
                   <div className="">
@@ -49,19 +49,19 @@ export default async function Header() {
               <li className="md:hidden">
                 <MobileMenu />
               </li>
-              <li className="flex text-[15px]  ">
+              {/* <li className="flex text-[15px]  ">
                 <button className="p-2 px-4 text-sm font-medium bg-pink-600 text-white rounded-3xl  cursor-pointer hover:bg-white hover:text-black transition-colors">
                   Sign In
                 </button>
-              </li>
-              {/* <li className="flex text-[15px]  ">
+              </li> */}
+              <li className="flex text-[15px]  ">
                 <Link
                   href={"/admin"}
                   className="p-2 px-4 text-sm font-medium bg-pink-600 text-white rounded-2xl  cursor-pointer hover:bg-red-500 hover:text-white transition-colors"
                 >
                   Admin
                 </Link>
-              </li> */}
+              </li>
               {/* Mobile menu toggle */}
             </ul>
           </div>

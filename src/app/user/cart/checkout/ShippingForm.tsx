@@ -5,7 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { sendOrders } from "@/utils/product/mutations/sendOrders";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { TPostOrderItem } from "@/types/order";
 // --------------------
 // Zod Schema
@@ -30,6 +30,8 @@ export default function CheckoutForm({
   total: number;
 }) {
   const [orderText, setOrderText] = useState("Place Order");
+  const [isOrdering, setIsOrdering] = useState(false);
+  const isLocked = useRef(false);
   const {
     register,
     handleSubmit,
@@ -43,6 +45,9 @@ export default function CheckoutForm({
   // Submit Handler
   // --------------------
   const onSubmit = async (data: OrderFormType) => {
+    if (isLocked.current) return;
+    isLocked.current = true;
+    setIsOrdering(true);
     const orderObj = {
       items: orderedItems,
       buyerInfo: {
@@ -58,13 +63,15 @@ export default function CheckoutForm({
 
     try {
       const res = await sendOrders(orderObj, setOrderText);
-      console.log("order res in order button", res);
       if (res.ok) {
         setOrderText("succeed");
         router.push("/user/orders");
       }
     } catch (err) {
       setOrderText("Failed");
+    } finally {
+      isLocked.current = false;
+      setIsOrdering(false);
     }
   };
 
@@ -149,7 +156,7 @@ export default function CheckoutForm({
           type="submit"
           className="mt-3 bg-blue-600 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-blue-500  focus:scale-95 transition-all"
         >
-          {orderText}
+          {isOrdering ? "wait..." : orderText}
         </button>
       </form>
     </section>

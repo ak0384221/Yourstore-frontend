@@ -49,7 +49,7 @@ export default async function Cart() {
               Order Summary
             </h2>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2">
               {items.map((item) => {
                 return (
                   <div key={item._id} className="flex justify-between text-sm ">

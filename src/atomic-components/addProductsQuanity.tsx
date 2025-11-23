@@ -1,6 +1,6 @@
 "use client";
 import { BASE_URL } from "@/utils/baseApi";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { IoAddCircle } from "react-icons/io5";
 import { BiSolidMinusCircle } from "react-icons/bi";
 import { TGetProduct } from "@/types/product";
@@ -16,6 +16,8 @@ export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
   const [cartMessage, setCartMessage] = useState("Add to cart");
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  // const [IsAddingToCart, setIsAddingToCart] = useState<boolean>(false);
+  // const isLocked = useRef<boolean>(false);
 
   function productIncrement() {
     setProductQuantity((prev) => prev + 1);
@@ -35,11 +37,14 @@ export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
   }
   const final = finalprice();
 
-  function handleCart() {
+  async function handleCart() {
     if (!selectedSize || !selectedColor) {
       setCartMessage("select size & color");
       return;
     }
+
+    // if (isLocked.current) return;
+    // isLocked.current = true;
     const cartObj: TPostCartItem = {
       product: item._id,
       productId: item.productId,
@@ -48,7 +53,11 @@ export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
       size: selectedSize,
       finalAmount: final,
     };
-    sendPostReq(`${BASE_URL}/api/cart`, cartObj, setCartMessage);
+    const res = await sendPostReq(
+      `${BASE_URL}/api/cart`,
+      cartObj,
+      setCartMessage
+    );
   }
 
   return (

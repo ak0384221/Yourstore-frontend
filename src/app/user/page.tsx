@@ -39,7 +39,7 @@ export default async function Home() {
           <div className="newArrival my-5 ">
             <CategoryTitle title="New Arrival" />
 
-            <div className="flex justify-center gap-4  my-5 w-full  mx-auto flex-wrap items-center">
+            <div className="flex justify-center gap-2  my-5 w-full  mx-auto flex-wrap items-center">
               {data?.map((product, index: number) => (
                 <Item item={product} key={index} />
               ))}

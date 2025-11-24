@@ -1,9 +1,6 @@
 import RemoveCartItem from "@/atomic-components/removeFromCartButton";
 import { TGetCartItem } from "@/types/cartItem";
-import {
-  finalAmount,
-  totalDiscount,
-} from "@/utils/product/mutations/pricingFunctions";
+import { totalDiscount } from "@/utils/product/mutations/pricingFunctions";
 import Image from "next/image";
 
 export default function ProductInCarts({ item }: { item: TGetCartItem }) {

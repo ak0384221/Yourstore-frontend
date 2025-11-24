@@ -12,6 +12,5 @@ export async function sendOrders(
     orderObj,
     setState
   );
-  console.log("order response -----------------", response);
   return response;
 }

@@ -1,16 +1,27 @@
-const allCategories = [
-  { name: "beauty" },
-  { name: "fragrances" },
-  { name: "furniture" },
-  { name: "groceries" },
-  { name: "home-decoration" },
-  { name: "kitchen-accessories" },
+const category = [
+  "beauty",
+  "fragrances",
+  "furniture",
+  "groceries",
+  "home-decoration",
+  "kitchen-accessories",
+  "laptops",
+  "mens-shirts",
+  "mens-shoes",
+  "mens-watches",
+  "mobile-accessories",
+  "motorcycle",
+  "skin-care",
+  "smartphones",
+  "sports-accessories",
+  "sunglasses",
+  "tablets",
+  "tops",
+  "vehicle",
+  "womens-bags",
+  "womens-dresses",
+  "womens-jewellery",
+  "womens-shoes",
+  "womens-watches",
 ];
-const highlightedCategories = [
-  { name: "beauty" },
-  { name: "fragrances" },
-  { name: "furniture" },
-  { name: "groceries" },
-];
-
-export { allCategories, highlightedCategories };
+export { category };

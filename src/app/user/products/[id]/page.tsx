@@ -20,11 +20,7 @@ export async function generateMetadata({
     description: data[0]?.description,
   };
 }
-export async function generateStaticParams({
-  params,
-}: {
-  params: { id: string };
-}) {
+export async function generateStaticParams() {
   const productsRes: TProductRes = await fetchAllProduct();
   const { data: products } = productsRes; // fetch all product IDs from DB or API
   return products.map((product) => ({ id: product.productId })); // return array of { id: '1' } etc.

@@ -1,27 +1,28 @@
-import TextStyleInItem from "@/atomic-components/textStyleOfItem";
-import Tooltip from "@/atomic-components/tooltip";
 import { TGetProduct } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
+
 //--------------------------------------//
 
-export default function Item({ item }: { item: TGetProduct }) {
+export default async function Item({ item }: { item: TGetProduct }) {
   return (
     <Link
       href={`/user/products/${item.productId}`}
-      className="group w-4/5 md:w-[40svw] lg:w-1/4 xl:w-1/5
+      className="group w-[45svw] md:w-[40svw] lg:w-1/4 xl:w-1/5
   bg-white border border-gray-300 rounded-lg overflow-hidden 
-  shadow-sm hover:shadow-md transition-all relative"
+  shadow-sm hover:shadow-md transition-all relative "
     >
       {/* Image with overlays */}
-      <div className="relative  bg-gray-50">
-        <Image
-          src={item.images[0].url}
-          alt={item.name}
-          width={300}
-          height={300}
-          className="h-full w-auto mx-auto object-cover group-hover:scale-105 transition-transform"
-        />
+      <div className="  bg-gray-50">
+        <div className="img relative  w-full  aspect-square overflow-hidden  bg-[#ffffff] ">
+          <Image
+            src={item.images[0].url}
+            alt={item.name}
+            fill
+            loading="lazy"
+            className="object-cover  hover:scale-105 transition-all"
+          />
+        </div>
 
         {/* Discount Badge */}
         {(item.discountPercent > 0 || item.salePercent > 0) && (

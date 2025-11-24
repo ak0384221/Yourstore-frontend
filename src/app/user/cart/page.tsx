@@ -32,7 +32,7 @@ export default async function Cart() {
 
   return (
     <>
-      <section className="min-h-screen cursor-pointer w-full  text-black py-12 px-6 md:px-16 flex flex-col md:flex-row gap-8">
+      <section className=" cursor-pointer w-full  text-black py-12 px-6 md:px-16 flex flex-col md:flex-row gap-6">
         <div className="flex-1 flex flex-col gap-6">
           <h1 className="text-3xl font-semibold mb-4  border-b border-gray-700 pb-2">
             Your Cart

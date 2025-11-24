@@ -2,7 +2,7 @@ import Breadcrumb from "@/atomic-components/BreadCrumbs";
 import EmptyData from "@/error/emptyData";
 import Fetchfailed from "@/error/fetchFailed";
 import Item from "@/micro-components/item";
-import { allCategories } from "@/staticTexts/categories";
+import { category } from "@/staticTexts/categories";
 import { TProductRes } from "@/types/product";
 import { fetchByCategory } from "@/utils/product/queries/fetchByCategory";
 import { Metadata } from "next";
@@ -14,8 +14,8 @@ export async function generateMetadata({
   params: { name: string };
 }): Promise<Metadata> {
   const { name } = await params;
-  const isAvaiable = allCategories.some(
-    (category) => category.name.trim() === name.trim()
+  const isAvaiable = category.some(
+    (category) => category.trim() === name.trim()
   );
 
   return {
@@ -24,7 +24,7 @@ export async function generateMetadata({
   };
 }
 export async function generateStaticParams() {
-  return allCategories.map((obj) => ({ name: obj.name }));
+  return category.map((obj) => ({ name: obj }));
 }
 export default async function CategoryPage({
   params,
@@ -32,8 +32,8 @@ export default async function CategoryPage({
   params: { name: string };
 }) {
   const { name } = await params;
-  const isAvaiable = allCategories.some(
-    (category) => category.name.trim() === name.trim()
+  const isAvaiable = category.some(
+    (category) => category.trim() === name.trim()
   );
 
   if (!isAvaiable) {
@@ -70,7 +70,7 @@ export default async function CategoryPage({
       {data.length > 0 && (
         <div className="w-[97svw] mx-auto ">
           <Suspense fallback={"loading"}>
-            <div className="flex justify-center gap-[7svh] flex-wrap">
+            <div className="flex justify-center gap-[1svh] flex-wrap">
               {data?.length > 0 ? (
                 data?.map((product, id: number) => (
                   <Item item={product} key={id} />

@@ -1,5 +1,4 @@
 import CategoryTitle from "@/atomic-components/categoryTitle";
-import Item from "./item";
 import Ads from "./ads";
 
 type productListGen = {
@@ -7,7 +6,7 @@ type productListGen = {
   items: object[];
 };
 
-export default function ListSummary({ title, items }: productListGen) {
+export default function ListSummary({ title }: productListGen) {
   return (
     <div className="newArrival">
       <CategoryTitle title={title} />

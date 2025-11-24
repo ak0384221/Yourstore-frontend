@@ -3,12 +3,12 @@ import Image from "next/image";
 import MobileMenu from "./mobileMenu";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaBagShopping } from "react-icons/fa6";
-import { highlightedCategories } from "@/staticTexts/categories";
+import { category } from "@/staticTexts/categories";
 
 export default async function Header() {
   return (
-    <header className=" fixed top-0 w-full h-[15svh]  z-100 ">
-      <section className="bg-[#1a1c1d] h-[10svh]  flex justify-between items-center px-4 ">
+    <header className=" w-full h-max   z-100 ">
+      <section className="bg-[#1a1c1d] h-max py-2 flex justify-between items-center px-4">
         {/* Logo */}
         <div className="size-8 md:size-9    relative">
           <Link href="/user">
@@ -70,14 +70,14 @@ export default async function Header() {
 
       {/* Collapsible menu */}
 
-      <ul className="flex justify-center gap-x-4 items-center  h-[5svh] px-2 flex-wrap bg-[#eff6f7] leading-tight py-1 ">
-        {highlightedCategories.map((item, index) => (
+      <ul className="hidden md:flex justify-center gap-x-4 items-center  h-max px-2 py-1 flex-wrap bg-[#eff6f7] ">
+        {category.map((item, index) => (
           <li key={index} className="text-black ">
             <Link
-              href={`/user/products/category/${item.name}`}
+              href={`/user/products/category/${item}`}
               className="hover:text-pink-600 text-[12px] font-normal block capitalize"
             >
-              {item.name}
+              {item}
             </Link>
           </li>
         ))}

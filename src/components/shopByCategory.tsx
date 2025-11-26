@@ -1,5 +1,4 @@
 import CategoryTitle from "@/atomic-components/categoryTitle";
-import CategoryPicBox from "@/micro-components/categoryPicBox";
 
 export default function ShopByCategory() {
   return (

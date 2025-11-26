@@ -19,7 +19,7 @@ export default function MobileMenu() {
       {isOpen && (
         <div className="mobile option mr-3 absolute right-5 top-[10vh] w-max p-1 md:hidden  backdrop-blur-xl bg-white/50 h-max text-white z-50 border border-pink-500 rounded-md ">
           <ul className="h-full grid grid-cols-2 gap-3 px-5  relative ">
-            {category.map((nav, ind) => (
+            {category.map((nav) => (
               <Link
                 onClick={() => setIsOpen(false)}
                 className={`${liStyle}`}

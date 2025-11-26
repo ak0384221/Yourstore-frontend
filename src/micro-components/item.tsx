@@ -4,7 +4,7 @@ import Link from "next/link";
 
 //--------------------------------------//
 
-export default async function Item({ item }: { item: TGetProduct }) {
+export default function Item({ item }: { item: TGetProduct }) {
   return (
     <Link
       href={`/user/products/${item.productId}`}

@@ -18,7 +18,7 @@ export default function Breadcrumb({
   }
 
   return (
-    <nav className="text-sm text-gray-600 flex items-center gap-1 flex-wrap ">
+    <nav className="text-sm text-gray-600 flex items-center gap-1 flex-wrap  w-1/2 ">
       <Link href="/user" className="hover:text-blue-600 transition">
         Home
       </Link>

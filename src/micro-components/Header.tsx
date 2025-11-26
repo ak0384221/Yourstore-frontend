@@ -4,11 +4,14 @@ import MobileMenu from "./mobileMenu";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaBagShopping } from "react-icons/fa6";
 import { category } from "@/staticTexts/categories";
+import { fetchProductsName } from "@/utils/product/queries/fetchProductsName";
+import SearchBar from "@/atomic-components/searchBar";
 
 export default async function Header() {
+  const products = await fetchProductsName();
   return (
     <header className=" w-full h-max   z-100 ">
-      <section className="bg-[#1a1c1d] h-max py-2 flex justify-between items-center px-4">
+      <section className="bg-[#1a1c1d] h-max py-2 flex justify-between items-center px-2">
         {/* Logo */}
         <div className="size-8 md:size-9    relative">
           <Link href="/user">
@@ -23,16 +26,12 @@ export default async function Header() {
         </div>
 
         {/* Search + Right Actions */}
-        <div className="flex flex-wrap  items-center ">
+        <div className="flex flex-wrap  items-center md:mr-5 ">
           <div className="">
-            <ul className="flex items-center gap-3 md:gap-5">
-              {/* <li>
-                <input
-                  type="text"
-                  placeholder="Search ..."
-                  className="border border-[#979797] text-white text-xs md:text-md p-2 pl-4 rounded-2xl w-[40svw] md:w-[30svw] focus:outline-0 placeholder:text-sm"
-                />
-              </li> */}
+            <ul className="flex items-center  gap-3">
+              <li>
+                <SearchBar products={products} />
+              </li>
               <li title="orders" className=" cursor-pointer ">
                 <Link href="/user/orders" className="">
                   <div className="">
@@ -54,14 +53,14 @@ export default async function Header() {
                   Sign In
                 </button>
               </li> */}
-              <li className="flex text-[15px]  ">
+              {/* <li className="flex text-[15px]  ">
                 <Link
                   href={"/admin"}
                   className="p-2 px-4 text-sm font-medium bg-pink-600 text-white rounded-2xl  cursor-pointer hover:bg-red-500 hover:text-white transition-colors"
                 >
                   Admin
                 </Link>
-              </li>
+              </li> */}
               {/* Mobile menu toggle */}
             </ul>
           </div>
@@ -85,4 +84,3 @@ export default async function Header() {
     </header>
   );
 }
-``;

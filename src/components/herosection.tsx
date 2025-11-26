@@ -5,24 +5,48 @@ import Image from "next/image";
 
 const slides = [
   {
-    img: "/banner/1.jpg",
+    img: "/banner/01.jpg",
     title: "Luxury Redefined",
     subtitle: "Discover elegant styles for every occasion.",
   },
   {
-    img: "/banner/2.jpg",
+    img: "/banner/02.jpg",
 
     title: "Unleash Your Style",
     subtitle: "Make every outfit a statement piece.",
   },
   {
-    img: "/banner/3.jpg",
+    img: "/banner/03.jpg",
 
     title: "Feel the Comfort",
     subtitle: "Experience the perfect blend of comfort and design.",
   },
   {
-    img: "/banner/4.jpg",
+    img: "/banner/04.jpg",
+
+    title: "Feel the Comfort",
+    subtitle: "Experience the perfect blend of comfort and design.",
+  },
+  {
+    img: "/banner/05.jpg",
+
+    title: "Feel the Comfort",
+    subtitle: "Experience the perfect blend of comfort and design.",
+  },
+  {
+    img: "/banner/06.jpg",
+
+    title: "Feel the Comfort",
+    subtitle: "Experience the perfect blend of comfort and design.",
+  },
+  {
+    img: "/banner/07.jpg",
+
+    title: "Feel the Comfort",
+    subtitle: "Experience the perfect blend of comfort and design.",
+  },
+  {
+    img: "/banner/08.jpg",
 
     title: "Feel the Comfort",
     subtitle: "Experience the perfect blend of comfort and design.",

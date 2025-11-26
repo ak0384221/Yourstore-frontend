@@ -1,7 +1,6 @@
 import HeroSection from "@/components/herosection";
 import CategoryTitle from "@/atomic-components/categoryTitle";
 import Item from "@/micro-components/item";
-import Link from "next/link";
 import { fetchlatestArrival } from "@/utils/product/queries/fetchLatestArrival";
 import { TProductRes } from "@/types/product";
 import Fetchfailed from "@/error/emptyData";

@@ -58,7 +58,7 @@ export default function LeftDetail({
               }`}
             >
               <Image
-                onClick={() => setImageUrl((prev) => img.url)}
+                onClick={() => setImageUrl(() => img.url)}
                 onMouseEnter={() => {
                   // Preload image
                   const preload = new window.Image();

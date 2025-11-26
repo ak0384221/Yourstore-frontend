@@ -1,8 +1,3 @@
-import CategoryTitle from "@/atomic-components/categoryTitle";
-import Item from "@/micro-components/item";
-import { fetchlatestArrival } from "@/utils/product/queries/fetchLatestArrival";
-import Link from "next/link";
-
 export default async function LatestPage() {
   return (
     <>

@@ -85,7 +85,7 @@ export default function HeroSection() {
   }, [currentSlide]);
 
   return (
-    <section className="relative md:h-[85svh] h-[85svh] w-full overflow-hidden bg-black text-white  ">
+    <section className="relative h-[95svh] md:h-[87svh] w-full overflow-hidden bg-black text-white  ">
       {/* Slider container */}
       <div
         ref={sliderRef}
@@ -120,7 +120,7 @@ export default function HeroSection() {
       </div>
 
       {/* Controls */}
-      <div className="absolute bottom-8 right-10 z-20 flex gap-4">
+      <div className="absolute bottom-15 right-10 z-20 flex gap-4">
         <button
           onClick={prevSlide}
           className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 transition flex items-center justify-center text-xl"

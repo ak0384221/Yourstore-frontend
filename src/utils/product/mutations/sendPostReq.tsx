@@ -10,8 +10,10 @@ async function sendPostReq<TBodyObj>(
       body: JSON.stringify(bodyObj),
     });
     if (!res.ok) {
-      setState?.("failed");
-      return { ok: false, data: [], error: `HTTP error ${res.status}` };
+      const err = await res.json();
+      console.log(res);
+      setState?.(err.error);
+      return { ok: false, data: [], error: `HTTP error ${err.error}` };
     }
     const data = await res.json();
     setState?.("succeed");

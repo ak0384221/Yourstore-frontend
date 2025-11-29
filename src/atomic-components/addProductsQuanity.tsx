@@ -1,6 +1,6 @@
 "use client";
 import { BASE_URL } from "@/utils/baseApi";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { IoAddCircle } from "react-icons/io5";
 import { BiSolidMinusCircle } from "react-icons/bi";
 import { TGetProduct } from "@/types/product";
@@ -16,8 +16,8 @@ export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
   const [cartMessage, setCartMessage] = useState("Add to cart");
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
-  // const [IsAddingToCart, setIsAddingToCart] = useState<boolean>(false);
-  // const isLocked = useRef<boolean>(false);
+  const [IsAddingToCart, setIsAddingToCart] = useState<boolean>(false);
+  const isLocked = useRef<boolean>(false);
 
   function productIncrement() {
     setProductQuantity((prev) => prev + 1);
@@ -43,8 +43,9 @@ export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
       return;
     }
 
-    // if (isLocked.current) return;
-    // isLocked.current = true;
+    if (isLocked.current) return;
+    isLocked.current = true;
+    setIsAddingToCart(true);
     const cartObj: TPostCartItem = {
       product: item._id,
       productId: item.productId,
@@ -53,11 +54,18 @@ export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
       size: selectedSize,
       finalAmount: final,
     };
-    const res = await sendPostReq(
-      `${BASE_URL}/api/cart`,
-      cartObj,
-      setCartMessage
-    );
+    try {
+      const res = await sendPostReq(
+        `${BASE_URL}/api/cart`,
+        cartObj,
+        setCartMessage
+      );
+    } catch (err) {
+      setCartMessage("failed");
+    } finally {
+      setIsAddingToCart(false);
+      isLocked.current = false;
+    }
   }
 
   return (
@@ -141,9 +149,13 @@ export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
       {/* Add to Cart Button */}
       <button
         onClick={handleCart}
-        className="w-full px-2 py-3 rounded-md bg-blue-500 text-white hover:bg-blue-600 cursor-pointer  transition-all capitalize "
+        className={`w-full px-2 py-3 rounded-md ${
+          isLocked.current
+            ? "bg-gray-300 cursor-not-allowed"
+            : " bg-blue-500 text-white hover:bg-blue-600 cursor-pointer"
+        }  transition-all capitalize `}
       >
-        {cartMessage}
+        {IsAddingToCart === true ? "adding..." : cartMessage}
       </button>
 
       {/* Selected Details */}

@@ -1,10 +1,7 @@
 import { TGetProduct } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
-
-//--------------------------------------//
-
-export default function Item({ item }: { item: TGetProduct }) {
+export default function SingleProduct({ item }: { item: TGetProduct }) {
   return (
     <Link
       href={`/user/products/${item.productId}`}

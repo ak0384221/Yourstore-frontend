@@ -1,10 +1,10 @@
 import HeroSection from "@/components/herosection";
 import CategoryTitle from "@/atomic-components/categoryTitle";
-import Item from "@/micro-components/item";
 import { fetchlatestArrival } from "@/utils/product/queries/fetchLatestArrival";
 import { TProductRes } from "@/types/product";
 import Fetchfailed from "@/error/emptyData";
 import EmptyData from "@/error/emptyData";
+import SingleProduct from "@/features/product/components/common/SingleProductCard";
 
 export default async function Home() {
   const latestData: TProductRes = await fetchlatestArrival(5);
@@ -40,7 +40,7 @@ export default async function Home() {
 
             <div className="flex justify-center gap-2  my-5 w-full  mx-auto flex-wrap items-center">
               {data?.map((product, index: number) => (
-                <Item item={product} key={index} />
+                <SingleProduct item={product} key={index} />
               ))}
             </div>
           </div>

@@ -1,14 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
-import MobileMenu from "./mobileMenu";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaBagShopping } from "react-icons/fa6";
 import { category } from "@/staticTexts/categories";
-import { fetchProductsName } from "@/utils/product/queries/fetchProductsName";
 import SearchBar from "@/atomic-components/searchBar";
+import { getProductsByName } from "@/features/product/api/getProductsByName.api";
+import Navbar from "@/components/layout/Navbar";
+import MobileMenu from "@/micro-components/mobileMenu";
 
 export default async function Header() {
-  const products = await fetchProductsName();
+  const products = await getProductsByName();
   return (
     <header className=" w-full h-max   z-100 ">
       <section className="bg-[#1a1c1d] h-max py-2 flex justify-between items-center px-2">
@@ -69,18 +70,7 @@ export default async function Header() {
 
       {/* Collapsible menu */}
 
-      <ul className="hidden md:flex justify-center gap-x-4 items-center  h-max px-2 py-1 flex-wrap bg-[#eff6f7] ">
-        {category.map((item, index) => (
-          <li key={index} className="text-black ">
-            <Link
-              href={`/user/products/category/${item}`}
-              className="hover:text-pink-600 text-[12px] font-normal block capitalize"
-            >
-              {item}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <Navbar category={category} />
     </header>
   );
 }

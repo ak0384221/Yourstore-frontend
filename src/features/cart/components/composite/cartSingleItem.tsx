@@ -3,7 +3,7 @@ import { TGetCartItem } from "@/types/cartItem";
 import { totalDiscount } from "@/utils/product/mutations/pricingFunctions";
 import Image from "next/image";
 
-export default function ProductInCarts({ item }: { item: TGetCartItem }) {
+export default function CartSingleItem({ item }: { item: TGetCartItem }) {
   return (
     <div className="relative grid grid-cols-[80px_1fr_auto] gap-4 items-center p-4 border border-neutral-300 rounded-xl shadow-sm hover:shadow-md transition-all bg-white hover:bg-[#f3fcfd]">
       <RemoveCartItem id={item._id} />

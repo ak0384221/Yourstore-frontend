@@ -22,7 +22,7 @@ const OrderSchema = z.object({
 
 type OrderFormType = z.infer<typeof OrderSchema>;
 
-export default function CheckoutForm({
+export default function OrderForm({
   orderedItems,
   total,
 }: {
@@ -77,9 +77,7 @@ export default function CheckoutForm({
 
   return (
     <section className="w-5/6 md:w-1/2 mx-auto bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-      <h2 className="text-xl font-semibold mb-4 text-center">
-        Shipping Details
-      </h2>
+      <h2 className="text-xl font-light mb-4 text-center">Shipping Details</h2>
 
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         {/* Name */}

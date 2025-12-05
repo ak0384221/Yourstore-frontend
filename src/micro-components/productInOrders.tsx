@@ -1,5 +1,7 @@
 import BuyerInfoLG from "@/app/admin/components/buyerInfoLg";
 import OrderItem from "@/app/admin/components/orderItem";
+import BuyerInfoInOrderedItems from "@/features/order/components/composite/BuyerInfoInOrderdItem";
+import OrderedItemCard from "@/features/order/components/composite/OrderedItemCard";
 import { TGetOrders } from "@/types/order";
 
 export default function MobileOrder({ item: order }: { item: TGetOrders }) {
@@ -8,6 +10,7 @@ export default function MobileOrder({ item: order }: { item: TGetOrders }) {
       <div>
         <div className="rounded-lg p-4 shadow-md border border-neutral-200  text-black ">
           {/* Header: Order ID + Status + Forward Button */}
+
           <div className=" flex gap-2  w-max">
             <h3 className="font-semibold text-sm">Order ID : {order?._id} </h3>
 
@@ -19,7 +22,10 @@ export default function MobileOrder({ item: order }: { item: TGetOrders }) {
           </div>
 
           {/* Buyer Info */}
-          <BuyerInfoLG buyer={order.buyerInfo} payment={order.paymentMethod} />
+          <BuyerInfoInOrderedItems
+            buyer={order.buyerInfo}
+            payment={order.paymentMethod}
+          />
 
           {/* Items */}
           <div>
@@ -27,10 +33,11 @@ export default function MobileOrder({ item: order }: { item: TGetOrders }) {
 
             <div className=" gap-2 flex justify-start flex-wrap">
               {order.items.map((item, index) => {
-                return <OrderItem key={index} item={item} />;
+                return <OrderedItemCard key={index} item={item} />;
               })}
             </div>
           </div>
+
           <div className="mt-2 text-md text-black   capitalize flex gap-2  items-center">
             <p>
               <span className="font-medium">Total : </span>

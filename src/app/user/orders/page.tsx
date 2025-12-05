@@ -1,10 +1,10 @@
 import Fetchfailed from "@/error/fetchFailed";
+import { getOrderItems } from "@/features/order/api/getOrders.api";
 import ProductInOrder from "@/micro-components/productInOrders";
 import { TGetOrderResponse } from "@/types/order";
-import { fetchOrderItems } from "@/utils/order/queries/fetchOrders";
 
 export default async function Orders() {
-  const response: TGetOrderResponse = await fetchOrderItems();
+  const response: TGetOrderResponse = await getOrderItems();
   const { data: items } = response;
   const { ok } = response;
 

@@ -1,9 +1,9 @@
 import ProductDetails from "@/components/detailProduct";
 import EmptyData from "@/error/emptyData";
 import Fetchfailed from "@/error/fetchFailed";
+import { getAllProducts } from "@/features/product/api/getAllProducts.api";
+import { getProductById } from "@/features/product/api/getProductById.api";
 import { TProductRes } from "@/types/product";
-import { fetchAllProduct } from "@/utils/product/queries/fetchAllProducts";
-import { fetchById } from "@/utils/product/queries/fetchById";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -12,7 +12,7 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   const { id } = await params;
-  const product: TProductRes = await fetchById(id);
+  const product: TProductRes = await getProductById(id);
   const { data } = product;
 
   return {
@@ -21,7 +21,7 @@ export async function generateMetadata({
   };
 }
 export async function generateStaticParams() {
-  const productsRes: TProductRes = await fetchAllProduct();
+  const productsRes: TProductRes = await getAllProducts();
   const { data: products } = productsRes; // fetch all product IDs from DB or API
   return products.map((product) => ({ id: product.productId })); // return array of { id: '1' } etc.
 }
@@ -33,7 +33,7 @@ export default async function DetailProductPage({
 }) {
   const { id } = await params;
 
-  const product: TProductRes = await fetchById(id);
+  const product: TProductRes = await getProductById(id);
   const { data } = product;
   const { ok } = product;
 

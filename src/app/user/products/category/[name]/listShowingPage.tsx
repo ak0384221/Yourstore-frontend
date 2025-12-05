@@ -1,8 +1,7 @@
 "use client";
-
 import Breadcrumb from "@/atomic-components/BreadCrumbs";
 import EmptyData from "@/error/emptyData";
-import Item from "@/micro-components/item";
+import SingleProduct from "@/features/product/components/common/SingleProductCard";
 import { TGetProduct } from "@/types/product";
 import { Suspense, useMemo, useState } from "react";
 
@@ -114,7 +113,7 @@ export default function ListShowing({
           <Suspense fallback={"loading"}>
             <div className="flex justify-center gap-[1svh] flex-wrap">
               {filteredProducts.map((product, id) => (
-                <Item item={product} key={id} />
+                <SingleProduct item={product} key={id} />
               ))}
             </div>
           </Suspense>

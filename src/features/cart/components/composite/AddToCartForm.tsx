@@ -1,5 +1,4 @@
 "use client";
-import { BASE_URL } from "@/utils/baseApi";
 import { useRef, useState } from "react";
 import { IoAddCircle } from "react-icons/io5";
 import { BiSolidMinusCircle } from "react-icons/bi";
@@ -8,10 +7,10 @@ import {
   finalAmount,
   totalDiscount,
 } from "@/utils/product/mutations/pricingFunctions";
-import { sendPostReq } from "@/utils/product/mutations/sendPostReq";
 import { TPostCartItem } from "@/types/cartItem";
+import { addToCart } from "@/features/cart/api/postCartItem.api";
 
-export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
+export default function AddToCartForm({ item }: { item: TGetProduct }) {
   const [productsQuantity, setProductQuantity] = useState(1);
   const [cartMessage, setCartMessage] = useState("Add to cart");
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -42,7 +41,6 @@ export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
       setCartMessage("select size & color");
       return;
     }
-
     if (isLocked.current) return;
     isLocked.current = true;
     setIsAddingToCart(true);
@@ -54,25 +52,15 @@ export default function ProductsPcsAdd({ item }: { item: TGetProduct }) {
       size: selectedSize,
       finalAmount: final,
     };
-    try {
-      const res = await sendPostReq(
-        `${BASE_URL}/api/cart`,
-        cartObj,
-        setCartMessage
-      );
-    } catch (err) {
-      setCartMessage("failed");
-    } finally {
-      setIsAddingToCart(false);
-      isLocked.current = false;
-    }
+
+    await addToCart(cartObj, setCartMessage, setIsAddingToCart, isLocked);
   }
 
   return (
     <div className="w-full md:w-1/2 flex flex-col gap-6 mt-8 text-black border-1 border-[#cacaca] p-5">
       {/* Variants Selector */}
       {item.variants && item.variants.length > 0 && (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 ">
           <h3 className="text-lg font-semibold">Select size & color</h3>
 
           {item.variants.map((variant, index: number) => (

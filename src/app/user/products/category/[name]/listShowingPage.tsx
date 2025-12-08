@@ -1,5 +1,5 @@
 "use client";
-import Breadcrumb from "@/atomic-components/BreadCrumbs";
+import Breadcrumb from "@/components/ui/BreadCrumbs";
 import EmptyData from "@/error/emptyData";
 import SingleProduct from "@/features/product/components/common/SingleProductCard";
 import { TGetProduct } from "@/types/product";

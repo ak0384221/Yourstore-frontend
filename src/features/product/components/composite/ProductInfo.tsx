@@ -1,6 +1,7 @@
-import ProductsPcsAdd from "@/atomic-components/addProductsQuanity";
-import ProductName from "@/atomic-components/ProductName";
+import ProductsPcsAdd from "@/features/cart/components/composite/AddToCartForm";
 import { TGetProduct } from "@/types/product";
+import ProductName from "../ui/ProductName";
+import AddToCartForm from "@/features/cart/components/composite/AddToCartForm";
 
 export default function ProductInfo({
   item,
@@ -90,7 +91,7 @@ export default function ProductInfo({
 
       {/* ACTION */}
       <div className="mt-3">
-        <ProductsPcsAdd item={item} />
+        <AddToCartForm item={item} />
       </div>
 
       {/* META */}

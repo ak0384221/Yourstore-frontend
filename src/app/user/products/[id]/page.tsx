@@ -1,8 +1,8 @@
-import ProductDetails from "@/components/detailProduct";
 import EmptyData from "@/error/emptyData";
 import Fetchfailed from "@/error/fetchFailed";
 import { getAllProducts } from "@/features/product/api/getAllProducts.api";
 import { getProductById } from "@/features/product/api/getProductById.api";
+import ProductDetailPage from "@/features/product/components/common/ProductDetailPage";
 import { TProductRes } from "@/types/product";
 import { Metadata } from "next";
 
@@ -47,7 +47,7 @@ export default async function DetailProductPage({
 
   return (
     <>
-      <ProductDetails item={data[0]} />
+      <ProductDetailPage item={data[0]} />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import Fetchfailed from "@/error/fetchFailed";
 import { getOrderItems } from "@/features/order/api/getOrders.api";
-import ProductInOrder from "@/micro-components/productInOrders";
+import ShowSingleOrder from "@/features/order/components/composite/ShowSingleOrder";
 import { TGetOrderResponse } from "@/types/order";
 
 export default async function Orders() {
@@ -29,7 +29,7 @@ export default async function Orders() {
       </h1>
       <div className="px-5 space-y-5">
         {items.map((item) => {
-          return <ProductInOrder key={item._id} item={item} />;
+          return <ShowSingleOrder key={item._id} item={item} />;
         })}
       </div>
     </>

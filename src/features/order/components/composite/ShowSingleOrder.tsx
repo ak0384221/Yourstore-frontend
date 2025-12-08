@@ -1,10 +1,8 @@
-import BuyerInfoLG from "@/app/admin/components/buyerInfoLg";
-import OrderItem from "@/app/admin/components/orderItem";
 import BuyerInfoInOrderedItems from "@/features/order/components/composite/BuyerInfoInOrderdItem";
 import OrderedItemCard from "@/features/order/components/composite/OrderedItemCard";
 import { TGetOrders } from "@/types/order";
 
-export default function MobileOrder({ item: order }: { item: TGetOrders }) {
+export default function ShowSingleOrder({ item: order }: { item: TGetOrders }) {
   return (
     <>
       <div>

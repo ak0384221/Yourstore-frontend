@@ -1,5 +1,5 @@
 "use client";
-import Breadcrumb from "@/atomic-components/BreadCrumbs";
+import Breadcrumb from "@/components/ui/BreadCrumbs";
 import { TGetProduct } from "@/types/product";
 import Image from "next/image";
 import { useState } from "react";

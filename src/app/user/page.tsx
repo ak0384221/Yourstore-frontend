@@ -1,5 +1,5 @@
-import HeroSection from "@/components/herosection";
-import CategoryTitle from "@/atomic-components/categoryTitle";
+import HeroSection from "@/components/layout/herosection";
+import CategoryTitle from "@/components/ui/categoryTitle";
 import { fetchlatestArrival } from "@/utils/product/queries/fetchLatestArrival";
 import { TProductRes } from "@/types/product";
 import Fetchfailed from "@/error/emptyData";

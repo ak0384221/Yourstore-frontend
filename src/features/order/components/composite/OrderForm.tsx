@@ -3,10 +3,10 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { sendOrders } from "@/utils/product/mutations/sendOrders";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import { TPostOrderItem } from "@/types/order";
+import { TPostOrderItem } from "../../types/order";
+import { postOrder } from "../../api/postOrder.api";
 // --------------------
 // Zod Schema
 // --------------------
@@ -62,7 +62,7 @@ export default function OrderForm({
     };
 
     try {
-      const res = await sendOrders(orderObj, setOrderText);
+      const res = await postOrder(orderObj, setOrderText);
       if (res.ok) {
         setOrderText("succeed");
         router.push("/user/orders");

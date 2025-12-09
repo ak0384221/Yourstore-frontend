@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { TGetProduct } from "@/types/product";
+import { TGetProduct } from "@/features/product/types/product";
 import { IoChevronForwardOutline } from "react-icons/io5";
 
 export default function Breadcrumb({

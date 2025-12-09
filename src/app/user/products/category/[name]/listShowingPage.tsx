@@ -2,7 +2,7 @@
 import Breadcrumb from "@/components/ui/BreadCrumbs";
 import EmptyData from "@/error/emptyData";
 import SingleProduct from "@/features/product/components/common/SingleProductCard";
-import { TGetProduct } from "@/types/product";
+import { TGetProduct } from "@/features/product/types/product";
 import { Suspense, useMemo, useState } from "react";
 
 export default function ListShowing({

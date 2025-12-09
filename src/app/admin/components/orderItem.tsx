@@ -1,4 +1,4 @@
-import { TPostOrderItem } from "@/types/order";
+import { TPostOrderItem } from "@/features/order/types/order";
 import Image from "next/image";
 
 export default function OrderItem({ item }: { item: TPostOrderItem }) {

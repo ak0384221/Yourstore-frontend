@@ -2,13 +2,12 @@
 import { useRef, useState } from "react";
 import { IoAddCircle } from "react-icons/io5";
 import { BiSolidMinusCircle } from "react-icons/bi";
-import { TGetProduct } from "@/types/product";
-import {
-  finalAmount,
-  totalDiscount,
-} from "@/utils/product/mutations/pricingFunctions";
-import { TPostCartItem } from "@/types/cartItem";
+import { TGetProduct } from "@/features/product/types/product";
+
+import { TPostCartItem } from "@/features/cart/types/cartItem";
 import { addToCart } from "@/features/cart/api/postCartItem.api";
+import { finalAmount, totalDiscount } from "@/features/utils/pricingFunctions";
+import { Cart } from "../../api/cart";
 
 export default function AddToCartForm({ item }: { item: TGetProduct }) {
   const [productsQuantity, setProductQuantity] = useState(1);
@@ -44,16 +43,18 @@ export default function AddToCartForm({ item }: { item: TGetProduct }) {
     if (isLocked.current) return;
     isLocked.current = true;
     setIsAddingToCart(true);
-    const cartObj: TPostCartItem = {
-      product: item._id,
-      productId: item.productId,
-      quantity: productsQuantity,
-      color: selectedColor,
-      size: selectedSize,
-      finalAmount: final,
-    };
 
-    await addToCart(cartObj, setCartMessage, setIsAddingToCart, isLocked);
+    const newCartItem = new Cart(
+      item._id,
+      item.productId,
+      productsQuantity,
+      selectedColor,
+      selectedSize,
+      final
+    );
+
+    await addToCart(newCartItem, setCartMessage, setIsAddingToCart, isLocked);
+    isLocked.current = false;
   }
 
   return (

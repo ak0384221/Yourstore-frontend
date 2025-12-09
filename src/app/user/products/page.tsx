@@ -1,8 +1,8 @@
 import EmptyData from "@/error/emptyData";
 import Fetchfailed from "@/error/fetchFailed";
-import { TProductRes } from "@/types/product";
-import { fetchBySearch } from "@/utils/product/queries/fetchBySearch";
+import { TProductRes } from "@/features/product/types/product";
 import ListShowing from "./category/[name]/listShowingPage";
+import { getProductsBySearch } from "@/features/product/api/getProductsBySearch";
 
 export default async function ProductsSearch({
   searchParams,
@@ -10,7 +10,7 @@ export default async function ProductsSearch({
   searchParams: { query?: string };
 }) {
   const query = (await searchParams).query || ""; // "shoes"
-  const productsRes: TProductRes = await fetchBySearch(query);
+  const productsRes: TProductRes = await getProductsBySearch(query);
   const { data } = productsRes;
   const { ok } = productsRes;
 

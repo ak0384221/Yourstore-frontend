@@ -1,7 +1,7 @@
-import { TPostCartItem } from "@/types/cartItem";
-import { BASE_URL } from "@/utils/baseApi";
-import { sendPostReq } from "@/utils/product/mutations/sendPostReq";
+import { TPostCartItem } from "@/features/cart/types/cartItem";
+import { BASE_URL } from "@/features/API/baseApi";
 import type { Dispatch, SetStateAction, RefObject } from "react";
+import { sendPostReq } from "@/features/API/sendPostReq";
 
 export async function addToCart(
   cartObj: TPostCartItem,

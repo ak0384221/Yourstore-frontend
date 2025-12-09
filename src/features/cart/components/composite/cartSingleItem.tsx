@@ -1,6 +1,6 @@
-import RemoveCartItem from "@/atomic-components/removeFromCartButton";
-import { TGetCartItem } from "@/types/cartItem";
-import { totalDiscount } from "@/utils/product/mutations/pricingFunctions";
+import { totalDiscount } from "@/features/utils/pricingFunctions";
+import RemoveCartItem from "@/features/cart/components/ui/removeFromCartButton";
+import { TGetCartItem } from "@/features/cart/types/cartItem";
 import Image from "next/image";
 
 export default function CartSingleItem({ item }: { item: TGetCartItem }) {

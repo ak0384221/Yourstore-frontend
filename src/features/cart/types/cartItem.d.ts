@@ -1,4 +1,4 @@
-import { TGetProduct } from "./product";
+import { TGetProduct } from "../../product/types/product";
 
 export type TPostCartItem = {
   product: string;

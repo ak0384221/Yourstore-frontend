@@ -11,7 +11,7 @@ export default function MobileMenu() {
   const liStyle =
     "hover:bg-pink-600 hover:text-white text-black font-bold  transition-colors h-full flex justify-start items-center cursor-pointer p-2 text-sm ";
   return (
-    <div className="mobile  h-max nav 3dot    ">
+    <div className="mobile  h-max nav 3dot">
       <MdOutlineMenu
         onClick={() => setIsOpen(!isOpen)}
         className="text-4xl  cursor-pointer hover:text-gray-400 text-white transition-colors"

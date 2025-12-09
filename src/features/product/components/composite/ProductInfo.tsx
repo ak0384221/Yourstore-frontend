@@ -1,5 +1,5 @@
 import ProductsPcsAdd from "@/features/cart/components/composite/AddToCartForm";
-import { TGetProduct } from "@/types/product";
+import { TGetProduct } from "@/features/product/types/product";
 import ProductName from "../ui/ProductName";
 import AddToCartForm from "@/features/cart/components/composite/AddToCartForm";
 

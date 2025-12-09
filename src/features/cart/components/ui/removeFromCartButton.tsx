@@ -1,16 +1,11 @@
 "use client";
 
-import { BASE_URL } from "@/utils/baseApi";
 import { useRouter } from "next/navigation";
+import { removeFromCart } from "../../api/removeCartItem.api";
 
 export default function RemoveCartItem({ id }: { id: string }) {
   const router = useRouter();
-  async function removeFromCart(id: string) {
-    const res = await fetch(`${BASE_URL}/api/cart/${id}`, {
-      method: "DELETE",
-    });
-    const data = await res.json();
-  }
+
   return (
     <button
       onClick={async () => {

@@ -1,6 +1,6 @@
 "use client";
 import Breadcrumb from "@/components/ui/BreadCrumbs";
-import { TGetProduct } from "@/types/product";
+import { TGetProduct } from "@/features/product/types/product";
 import Image from "next/image";
 import { useState } from "react";
 export default function ProductImageSection({

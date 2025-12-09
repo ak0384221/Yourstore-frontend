@@ -3,17 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
-
-type productMinorData = {
-  _id: string;
-  name: string;
-  productId: string;
-};
-type productMinorDataRes = {
-  ok: boolean;
-  error: null | string;
-  data: productMinorData[];
-};
+import { productMinorData, productMinorDataRes } from "../types/searchProducts";
 
 export default function SearchBar({
   products,

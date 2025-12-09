@@ -3,7 +3,7 @@ import Fetchfailed from "@/error/fetchFailed";
 import { getAllProducts } from "@/features/product/api/getAllProducts.api";
 import { getProductById } from "@/features/product/api/getProductById.api";
 import ProductDetailPage from "@/features/product/components/common/ProductDetailPage";
-import { TProductRes } from "@/types/product";
+import { TProductRes } from "@/features/product/types/product";
 import { Metadata } from "next";
 
 export async function generateMetadata({

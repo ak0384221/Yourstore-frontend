@@ -1,4 +1,4 @@
-import { TBuyerInfo } from "@/types/order";
+import { TBuyerInfo } from "../../types/order";
 
 export default function BuyerInfoInOrderedItems({
   buyer,

@@ -1,13 +1,13 @@
 import HeroSection from "@/components/layout/herosection";
 import CategoryTitle from "@/components/ui/categoryTitle";
-import { fetchlatestArrival } from "@/utils/product/queries/fetchLatestArrival";
-import { TProductRes } from "@/types/product";
+import { TProductRes } from "@/features/product/types/product";
 import Fetchfailed from "@/error/emptyData";
 import EmptyData from "@/error/emptyData";
 import SingleProduct from "@/features/product/components/common/SingleProductCard";
+import { getLatestProducts } from "@/features/product/api/getLatestProducts";
 
 export default async function Home() {
-  const latestData: TProductRes = await fetchlatestArrival(5);
+  const latestData: TProductRes = await getLatestProducts(5);
   const { data } = latestData;
   const { ok } = latestData;
 

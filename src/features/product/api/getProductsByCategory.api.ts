@@ -1,5 +1,5 @@
-import { BASE_URL } from "@/utils/baseApi";
-import { fetchFromApi } from "@/utils/product/queries/fetchFromApi";
+import { BASE_URL } from "@/features/API/baseApi";
+import { fetchFromApi } from "./fetchFromApi";
 
 export async function getProductsByCategory(name: string) {
   const response = await fetchFromApi(

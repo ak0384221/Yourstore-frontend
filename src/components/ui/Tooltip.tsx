@@ -1,4 +1,4 @@
-import { totalDiscount } from "@/utils/product/mutations/pricingFunctions";
+import { totalDiscount } from "@/features/utils/pricingFunctions";
 
 export default function Tooltip({
   discount,

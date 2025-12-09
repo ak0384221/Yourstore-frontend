@@ -1,5 +1,5 @@
-import { TPostOrderItem } from "@/types/order";
 import Image from "next/image";
+import { TPostOrderItem } from "../../types/order";
 
 export default function OrderedItemCard({ item }: { item: TPostOrderItem }) {
   return (

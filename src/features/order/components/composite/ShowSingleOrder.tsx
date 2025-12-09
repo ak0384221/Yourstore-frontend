@@ -1,6 +1,6 @@
 import BuyerInfoInOrderedItems from "@/features/order/components/composite/BuyerInfoInOrderdItem";
 import OrderedItemCard from "@/features/order/components/composite/OrderedItemCard";
-import { TGetOrders } from "@/types/order";
+import { TGetOrders } from "../../types/order";
 
 export default function ShowSingleOrder({ item: order }: { item: TGetOrders }) {
   return (

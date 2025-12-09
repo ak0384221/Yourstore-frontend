@@ -1,5 +1,5 @@
-import { TGetCartItem } from "@/types/cartItem";
-import { TOrderSummary } from "@/types/order";
+import { TGetCartItem } from "@/features/cart/types/cartItem";
+import { TOrderSummary } from "../order/types/order";
 
 function totalDiscount(
   regularDiscount: number = 0,

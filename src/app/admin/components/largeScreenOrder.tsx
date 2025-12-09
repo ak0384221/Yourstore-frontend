@@ -1,5 +1,5 @@
+import { TGetOrders } from "@/features/order/types/order";
 import Link from "next/link";
-import { TGetOrders } from "@/types/order";
 
 export default function LargeScreenOrder({
   items: orders,

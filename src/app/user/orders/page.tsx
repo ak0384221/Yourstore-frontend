@@ -1,7 +1,7 @@
 import Fetchfailed from "@/error/fetchFailed";
 import { getOrderItems } from "@/features/order/api/getOrders.api";
 import ShowSingleOrder from "@/features/order/components/composite/ShowSingleOrder";
-import { TGetOrderResponse } from "@/types/order";
+import { TGetOrderResponse } from "@/features/order/types/order";
 
 export default async function Orders() {
   const response: TGetOrderResponse = await getOrderItems();

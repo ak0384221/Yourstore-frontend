@@ -1,4 +1,4 @@
-import { TGetProduct } from "@/types/product";
+import { TGetProduct } from "@/features/product/types/product";
 import Image from "next/image";
 import Link from "next/link";
 export default function SingleProduct({ item }: { item: TGetProduct }) {

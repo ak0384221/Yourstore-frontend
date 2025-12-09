@@ -1,12 +1,12 @@
-import { TGetCartResponse } from "@/types/cartItem";
-import {
-  calculateTotalAmount,
-  calculateTotalPrice,
-} from "@/utils/product/mutations/pricingFunctions";
+import { TGetCartResponse } from "@/features/cart/types/cartItem";
 import Fetchfailed from "@/error/fetchFailed";
 import { getCartItems } from "@/features/cart/api/getCartItems.api";
 import CartSingleItem from "@/features/cart/components/composite/cartSingleItem";
 import CheckoutSummary from "@/features/cart/components/composite/CheckoutSummary";
+import {
+  calculateTotalAmount,
+  calculateTotalPrice,
+} from "@/features/utils/pricingFunctions";
 
 export default async function Cart() {
   const response: TGetCartResponse = await getCartItems();

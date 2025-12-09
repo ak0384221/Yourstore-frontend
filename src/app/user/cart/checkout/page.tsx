@@ -1,15 +1,16 @@
 import Fetchfailed from "@/error/fetchFailed";
-import { TGetCartResponse } from "@/types/cartItem";
-import { fetchCartItem } from "@/utils/cart/fetchCartItem";
 import {
   calculateTotalAmount,
   calculateTotalPrice,
-} from "@/utils/product/mutations/pricingFunctions";
-import { TPostOrderItem } from "@/types/order";
+} from "@/features/utils/pricingFunctions";
+import { getCartItems } from "@/features/cart/api/getCartItems.api";
+import { TGetCartResponse } from "@/features/cart/types/cartItem";
+
 import PlaceOrderPage from "@/features/order/components/common/PlaceOrderPage";
+import { TPostOrderItem } from "@/features/order/types/order";
 
 export default async function Checkout() {
-  const response: TGetCartResponse = await fetchCartItem();
+  const response: TGetCartResponse = await getCartItems();
   const { data: items } = response;
   const { ok } = response;
 

@@ -1,5 +1,5 @@
 import { fetchFromApi } from "./fetchFromApi";
-import { BASE_URL } from "@/utils/baseApi";
+import { BASE_URL } from "@/features/API/baseApi";
 
 export async function fetchOnSale() {
   const response = await fetchFromApi(

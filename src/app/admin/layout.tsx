@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import AdminNavbar from "@/micro-components/adminNavbar";
+import AdminNavbar from "@/components/layout/adminNavbar";
 
 export const metadata: Metadata = {
   title: "Regalo | Send A Gift",

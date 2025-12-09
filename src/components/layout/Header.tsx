@@ -3,10 +3,10 @@ import Image from "next/image";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaBagShopping } from "react-icons/fa6";
 import { category } from "@/staticTexts/categories";
-import SearchBar from "@/atomic-components/searchBar";
+import SearchBar from "@/features/SearchBar/components/searchBar";
 import { getProductsByName } from "@/features/product/api/getProductsByName.api";
 import Navbar from "@/components/layout/Navbar";
-import MobileMenu from "@/micro-components/mobileMenu";
+import MobileMenu from "@/components/layout/mobileMenu";
 
 export default async function Header() {
   const products = await getProductsByName();

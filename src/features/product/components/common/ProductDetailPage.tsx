@@ -1,7 +1,7 @@
-import { TGetProduct, TProductRes } from "@/types/product";
-import { fetchByCategory } from "@/utils/product/queries/fetchByCategory";
+import { TGetProduct, TProductRes } from "@/features/product/types/product";
 import SingleProduct from "@/features/product/components/common/SingleProductCard";
 import ProductDetail from "./ProductDetail";
+import { getProductsByCategory } from "../../api/getProductsByCategory.api";
 
 export default async function ProductDetailPage({
   item,
@@ -9,7 +9,7 @@ export default async function ProductDetailPage({
   item: TGetProduct;
 }) {
   const totalDisc = item.discountPercent + item.salePercent;
-  const products: TProductRes | [] = await fetchByCategory(
+  const products: TProductRes | [] = await getProductsByCategory(
     item?.category.trim().toLocaleLowerCase()
   );
   const { data } = products;

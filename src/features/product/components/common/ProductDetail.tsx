@@ -1,4 +1,4 @@
-import { TGetProduct } from "@/types/product";
+import { TGetProduct } from "@/features/product/types/product";
 import ProductImageSection from "../composite/ProductImagesSection";
 import ProductInfo from "../composite/ProductInfo";
 

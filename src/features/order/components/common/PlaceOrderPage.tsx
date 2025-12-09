@@ -1,7 +1,7 @@
-import { TGetCartItem } from "@/types/cartItem";
+import { TGetCartItem } from "@/features/cart/types/cartItem";
 import OrderForm from "../composite/OrderForm";
 import OrderSummary from "../composite/OrderSummary";
-import { TPostOrderItem } from "@/types/order";
+import { TPostOrderItem } from "../../types/order";
 
 export default function PlaceOrderPage({
   items,

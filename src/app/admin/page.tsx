@@ -1,10 +1,10 @@
-import { TGetOrderResponse } from "@/types/order";
+import { TGetOrderResponse } from "@/features/order/types/order";
 import LargeScreenOrder from "./components/largeScreenOrder";
-import { fetchOrderItems } from "@/utils/order/queries/fetchOrders";
 import Fetchfailed from "@/error/fetchFailed";
+import { getOrderItems } from "@/features/order/api/getOrders.api";
 
 export default async function AdminPage() {
-  const response: TGetOrderResponse = await fetchOrderItems();
+  const response: TGetOrderResponse = await getOrderItems();
   const { data: items } = response;
   const { ok } = response;
 

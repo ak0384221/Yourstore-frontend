@@ -1,4 +1,4 @@
-import { TBuyerInfo } from "@/types/order";
+import { TBuyerInfo } from "@/features/order/types/order";
 
 export default function BuyerInfoLG({
   buyer,

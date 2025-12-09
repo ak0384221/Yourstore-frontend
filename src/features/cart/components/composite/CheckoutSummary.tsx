@@ -1,4 +1,4 @@
-import { TGetCartItem } from "@/types/cartItem";
+import { TGetCartItem } from "@/features/cart/types/cartItem";
 import Link from "next/link";
 
 export default function CheckoutSummary({

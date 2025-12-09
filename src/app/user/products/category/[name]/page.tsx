@@ -1,7 +1,7 @@
 import EmptyData from "@/error/emptyData";
 import Fetchfailed from "@/error/fetchFailed";
 import { category } from "@/staticTexts/categories";
-import { TProductRes } from "@/types/product";
+import { TProductRes } from "@/features/product/types/product";
 import { Metadata } from "next";
 import ListShowing from "./listShowingPage";
 import { getProductsByCategory } from "@/features/product/api/getProductsByCategory.api";

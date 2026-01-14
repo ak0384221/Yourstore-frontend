@@ -16,7 +16,7 @@ export default function UserLayout({
     <html lang="en">
       <head></head>
       <body className="bg-rootBg text-white">
-        <AdminNavbar />
+        {/* <AdminNavbar /> */}
         <div>{children}</div>
       </body>
     </html>

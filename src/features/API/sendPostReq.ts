@@ -1,8 +1,4 @@
-async function sendPostReq<TBodyObj>(
-  url: string,
-  bodyObj: TBodyObj,
-  setState?: React.Dispatch<React.SetStateAction<string>>
-) {
+async function sendPostReq<TBodyObj>(url: string, bodyObj: TBodyObj) {
   try {
     const res = await fetch(url, {
       method: "POST",
@@ -11,12 +7,10 @@ async function sendPostReq<TBodyObj>(
     });
     if (!res.ok) {
       const err = await res.json();
-      console.log(res);
-      setState?.(err.error);
       return { ok: false, data: [], error: `HTTP error ${err.error}` };
     }
+
     const data = await res.json();
-    setState?.("succeed");
 
     return {
       ok: true,
@@ -24,8 +18,6 @@ async function sendPostReq<TBodyObj>(
       data: data,
     };
   } catch (error) {
-    setState?.("failed");
-
     return {
       ok: false,
       error: `network error ${error}`,

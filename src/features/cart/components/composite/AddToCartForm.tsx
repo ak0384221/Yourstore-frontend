@@ -16,6 +16,7 @@ export default function AddToCartForm({ item }: { item: TGetProduct }) {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [IsAddingToCart, setIsAddingToCart] = useState<boolean>(false);
   const isLocked = useRef<boolean>(false);
+  const isCartAble = item.status == "active" && item.availableQuantity > 0;
 
   function productIncrement() {
     setProductQuantity((prev) => prev + 1);
@@ -53,7 +54,16 @@ export default function AddToCartForm({ item }: { item: TGetProduct }) {
       final
     );
 
-    await addToCart(newCartItem, setCartMessage, setIsAddingToCart, isLocked);
+    const response = await addToCart(newCartItem);
+    if (response.ok) {
+      setCartMessage("added to cart");
+      setIsAddingToCart(false);
+    } else {
+      setCartMessage("failed to add");
+      setIsAddingToCart(false);
+    }
+
+    console.log(response);
     isLocked.current = false;
   }
 
@@ -137,14 +147,19 @@ export default function AddToCartForm({ item }: { item: TGetProduct }) {
 
       {/* Add to Cart Button */}
       <button
+        disabled={!isCartAble}
         onClick={handleCart}
-        className={`w-full px-2 py-3 rounded-md ${
+        className={`w-full px-2 py-3 rounded-md disabled:bg-gray-600 disabled:text-gray-500 disabled:cursor-not-allowed ${
           isLocked.current
             ? "bg-gray-300 cursor-not-allowed"
             : " bg-blue-500 text-white hover:bg-blue-600 cursor-pointer"
         }  transition-all capitalize `}
       >
-        {IsAddingToCart === true ? "adding..." : cartMessage}
+        {isCartAble
+          ? IsAddingToCart === true
+            ? "adding..."
+            : cartMessage
+          : "Invalid"}
       </button>
 
       {/* Selected Details */}

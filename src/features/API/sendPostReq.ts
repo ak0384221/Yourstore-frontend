@@ -1,5 +1,12 @@
-async function sendPostReq<TBodyObj>(url: string, bodyObj: TBodyObj) {
+import type { Dispatch, SetStateAction } from "react";
+
+async function sendPostReq<TBodyObj>(
+  url: string,
+  bodyObj: TBodyObj,
+  setState?: Dispatch<SetStateAction<string>>,
+) {
   try {
+    setState?.("Submitting...");
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -7,10 +14,12 @@ async function sendPostReq<TBodyObj>(url: string, bodyObj: TBodyObj) {
     });
     if (!res.ok) {
       const err = await res.json();
+      setState?.("Failed to submit");
       return { ok: false, data: [], error: `HTTP error ${err.error}` };
     }
 
     const data = await res.json();
+    setState?.("Submitted successfully");
 
     return {
       ok: true,
@@ -18,6 +27,7 @@ async function sendPostReq<TBodyObj>(url: string, bodyObj: TBodyObj) {
       data: data,
     };
   } catch (error) {
+    setState?.("Network error");
     return {
       ok: false,
       error: `network error ${error}`,

@@ -3,6 +3,8 @@ import { getOrderItems } from "@/features/order/api/getOrders.api";
 import ShowSingleOrder from "@/features/order/components/composite/ShowSingleOrder";
 import { TGetOrderResponse } from "@/features/order/types/order";
 
+export const dynamic = "force-dynamic"; // <-- add this line, nothing else changes
+
 export default async function Orders() {
   const response: TGetOrderResponse = await getOrderItems();
   const { data: items } = response;

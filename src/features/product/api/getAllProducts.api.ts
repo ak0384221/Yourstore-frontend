@@ -3,7 +3,7 @@ import { fetchFromApi } from "./fetchFromApi";
 
 export async function getAllProducts() {
   const response = await fetchFromApi(`${BASE_URL}/api/products`, {
-    revalidate: 600,
+    revalidate: 120,
   });
   return response;
 }

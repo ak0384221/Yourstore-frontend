@@ -8,6 +8,7 @@ import { TGetCartResponse } from "@/features/cart/types/cartItem";
 
 import PlaceOrderPage from "@/features/order/components/common/PlaceOrderPage";
 import { TPostOrderItem } from "@/features/order/types/order";
+export const dynamic = "force-dynamic"; // <-- add this line, nothing else changes
 
 export default async function Checkout() {
   const response: TGetCartResponse = await getCartItems();

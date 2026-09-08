@@ -1,9 +1,10 @@
-import { BASE_URL } from "@/features/API/baseApi";
+import { BASE_URL, PUBLIC_URL } from "@/features/API/baseApi";
 import { fetchFromApi } from "@/features/product/api/fetchFromApi";
 
 export async function getCartItems() {
   const response = await fetchFromApi(`${BASE_URL}/api/cart`, {
     noCache: true,
   });
+  console.log("get cart item api,", response);
   return response;
 }

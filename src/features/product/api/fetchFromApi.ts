@@ -1,16 +1,11 @@
 async function fetchFromApi(
   url: string,
-  options?: { revalidate?: number; noCache?: boolean }
+  options?: { revalidate?: number; noCache?: boolean },
 ) {
-  const fetchOptions: RequestInit = {};
-
-  if (options?.noCache) {
-    fetchOptions.cache = "no-store"; // always fresh
-  } else if (options?.revalidate) {
-    fetchOptions.next = { revalidate: options.revalidate }; // revalidate after N seconds
-  } else {
-    fetchOptions.cache = "force-cache"; // default static cache
-  }
+  const fetchOptions: RequestInit =
+    options?.noCache || options?.revalidate === undefined
+      ? { cache: "no-store" }
+      : { next: { revalidate: options.revalidate } };
 
   try {
     const res = await fetch(url, fetchOptions);

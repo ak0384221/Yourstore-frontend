@@ -4,9 +4,7 @@ import { fetchFromApi } from "./fetchFromApi";
 export async function getProductsByCategory(name: string) {
   const response = await fetchFromApi(
     `${BASE_URL}/api/products/category/${name}`,
-    {
-      revalidate: 600,
-    }
+    { revalidate: 120 },
   );
   return response;
 }

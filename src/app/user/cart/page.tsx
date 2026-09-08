@@ -8,6 +8,8 @@ import {
   calculateTotalPrice,
 } from "@/features/utils/pricingFunctions";
 
+export const dynamic = "force-dynamic"; // <-- add this line, nothing else changes
+
 export default async function Cart() {
   const response: TGetCartResponse = await getCartItems();
   const { data: items } = response;

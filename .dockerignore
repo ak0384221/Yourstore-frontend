@@ -1,0 +1,16 @@
+node_modules
+.git
+.github
+.env
+.env.*
+*.md
+src
+app
+components
+coverage
+tests
+*.test.ts
+*.spec.ts
+Dockerfile
+.dockerignore
+.next/cache

@@ -1,38 +1,59 @@
-FROM node:22-alpine AS builder
+# FROM node:22-alpine AS builder
 
-WORKDIR /app
+# WORKDIR /app
 
-ENV CI=true
+# ENV CI=true
 
-ARG INTERNAL_API_URL
-ENV INTERNAL_API_URL=$INTERNAL_API_URL
-
-
-COPY package.json pnpm-*.yaml /app/
-
-RUN npm install -g pnpm@11.24.0
-
-RUN pnpm install --frozen-lockfile
-
-COPY . .
+# ARG INTERNAL_API_URL
+# ENV INTERNAL_API_URL=$INTERNAL_API_URL
 
 
-RUN pnpm run build
+# COPY package.json pnpm-*.yaml /app/
+
+# RUN npm install -g pnpm@11.24.0
+
+# RUN pnpm install --frozen-lockfile
+
+# COPY . .
 
 
+# RUN pnpm run build
+
+
+
+# FROM node:22-alpine
+
+# WORKDIR /app
+
+# ENV NODE_ENV=production
+
+# COPY --from=builder /app/public ./public
+
+# COPY --from=builder /app/.next/standalone ./
+
+# COPY --from=builder /app/.next/static ./.next/static
+
+# EXPOSE 3000
+
+# CMD [ "node","server.js" ]
+
+
+# for ci cd
 
 FROM node:22-alpine
 
 WORKDIR /app
 
-ENV NODE_ENV=production
+COPY standalone/ ./
 
-COPY --from=builder /app/public ./public
+COPY static/ ./.next/static
 
-COPY --from=builder /app/.next/standalone ./
-
-COPY --from=builder /app/.next/static ./.next/static
+COPY public ./public
 
 EXPOSE 3000
+
+ENV NODE_ENV=production
+
+ENV PORT=3000
 
 CMD [ "node","server.js" ]

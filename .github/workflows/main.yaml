@@ -2,7 +2,7 @@ name: frontend ci/cd
 
 on:
   push:
-    branches: ["staging,main"]
+    branches: [staging, main]
 
 jobs:
   verify-and-build:

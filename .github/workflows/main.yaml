@@ -37,6 +37,15 @@ jobs:
           INTERNAL_API_URL: ${{secrets.NEXT_PUBLIC_API_URL}}
         run: pnpm run build
 
+      - name: List .next contents (debug)
+        run: |
+          echo "Contents of .next:"
+          ls -la .next/ || echo ".next folder doesn't exist"
+          echo "Contents of .next/standalone (if it exists):"
+          ls -la .next/standalone/ 2>/dev/null || echo "standalone folder missing"
+          echo "Contents of .next/static (if it exists):"
+          ls -la .next/static/ 2>/dev/null || echo "static folder missing"
+
       - name: upload build output
         uses: actions/upload-artifact@v4
         with:

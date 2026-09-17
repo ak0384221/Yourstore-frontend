@@ -11,31 +11,26 @@ jobs:
       - name: get code
         uses: actions/checkout@v4
 
-      - name: setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 11.24.0
-
       - name: setup node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
+          cache: npm
 
       - name: install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: lint check
-        run: pnpm run lint
+        run: npm run lint
 
       - name: test
-        run: pnpm run test
+        run: npm run test
 
       - name: build
         env:
           NEXT_PUBLIC_API_URL: ${{secrets.NEXT_PUBLIC_API_URL}}
           INTERNAL_API_URL: ${{secrets.NEXT_PUBLIC_API_URL}}
-        run: pnpm run build
+        run: npm run build
 
       # - name: List .next contents (debug)
       #   run: |
@@ -84,7 +79,7 @@ jobs:
 
   # deploy-to-render:
   #   needs: docker-build-push
-  #   runs-on: ubuntu-latest
+  #   runs-on: ubuntu-terests
   #   if: github.ref == 'refs/heads/main'
   #   steps:
   #     - name: deploy to render

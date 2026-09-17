@@ -78,10 +78,10 @@ jobs:
           push: true
           tags: ak0384221/yourstore-frontend-public:${{github.ref_name}}
 
-  # deploy-to-render:
-  #   needs: docker-build-push
-  #   runs-on: ubuntu-terests
-  #   if: github.ref == 'refs/heads/main'
-  #   steps:
-  #     - name: deploy to render
-  #       run: curl -X POST ""
+  deploy-to-render:
+    needs: docker-build-push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: deploy to render
+        run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"

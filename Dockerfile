@@ -56,4 +56,4 @@ ENV NODE_ENV=production
 
 ENV PORT=3000
 
-CMD [ "node","server.js" ]
+CMD ["/bin/sh", "-c", "exec env HOSTNAME=0.0.0.0 node server.js"]

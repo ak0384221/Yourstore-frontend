@@ -44,9 +44,9 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-COPY standalone/ ./
+COPY .next/standalone/ ./
 
-COPY static/ ./.next/static
+COPY .next/static/ ./.next/static
 
 COPY public ./public
 

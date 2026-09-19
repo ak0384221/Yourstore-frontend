@@ -26,6 +26,14 @@ jobs:
       - name: test
         run: npm run test
 
+      - name: cache next.js build
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: nextjs-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+            nextjs-${{ hashFiles('package-lock.json') }}-
+
       - name: build
         env:
           NEXT_PUBLIC_API_URL: ${{secrets.NEXT_PUBLIC_API_URL}}

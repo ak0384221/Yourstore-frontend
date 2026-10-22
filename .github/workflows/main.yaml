@@ -1,88 +1,88 @@
-name: frontend ci/cd
+# name: frontend ci/cd
 
-on:
-  push:
-    branches: [staging, main]
+# on:
+#   push:
+#     branches: [staging, main]
 
-jobs:
-  verify:
-    runs-on: ubuntu-latest
-    steps:
-      - name: get code
-        uses: actions/checkout@v4
+# jobs:
+#   verify:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: get code
+#         uses: actions/checkout@v4
 
-      - name: setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
+#       - name: setup node
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 22
+#           cache: npm
 
-      - name: install dependencies
-        run: npm install
+#       - name: install dependencies
+#         run: npm install
 
-      - name: lint check
-        run: npm run lint
+#       - name: lint check
+#         run: npm run lint
 
-      - name: test
-        run: npm run test
+#       - name: test
+#         run: npm run test
 
-  build:
-    needs: verify
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - target: render
-            tag_suffix: "-render"
-          - target: aws
-            tag_suffix: "-aws"
-    environment: ${{ matrix.target }}
-    steps:
-      - name: get code
-        uses: actions/checkout@v4
+#   build:
+#     needs: verify
+#     runs-on: ubuntu-latest
+#     strategy:
+#       fail-fast: false
+#       matrix:
+#         include:
+#           - target: render
+#             tag_suffix: "-render"
+#           - target: aws
+#             tag_suffix: "-aws"
+#     environment: ${{ matrix.target }}
+#     steps:
+#       - name: get code
+#         uses: actions/checkout@v4
 
-      - name: setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
+#       - name: setup node
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 22
+#           cache: npm
 
-      - name: install dependencies
-        run: npm ci
+#       - name: install dependencies
+#         run: npm ci
 
-      - name: cache next.js build
-        uses: actions/cache@v4
-        with:
-          path: .next/cache
-          key: nextjs-${{ matrix.target }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-          restore-keys: |
-            nextjs-${{ matrix.target }}-${{ hashFiles('package-lock.json') }}-
+#       - name: cache next.js build
+#         uses: actions/cache@v4
+#         with:
+#           path: .next/cache
+#           key: nextjs-${{ matrix.target }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+#           restore-keys: |
+#             nextjs-${{ matrix.target }}-${{ hashFiles('package-lock.json') }}-
 
-      - name: build
-        env:
-          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-          INTERNAL_API_URL: ${{ secrets.INTERNAL_API_URL }}
-        run: npm run build
+#       - name: build
+#         env:
+#           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+#           INTERNAL_API_URL: ${{ secrets.INTERNAL_API_URL }}
+#         run: npm run build
 
-      - name: login to dockerhub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+#       - name: login to dockerhub
+#         uses: docker/login-action@v3
+#         with:
+#           username: ${{ secrets.DOCKERHUB_USERNAME }}
+#           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: build docker image and push
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: ak0384221/yourstore-frontend-public:${{ github.ref_name }}${{ matrix.tag_suffix }}
+#       - name: build docker image and push
+#         uses: docker/build-push-action@v6
+#         with:
+#           context: .
+#           push: true
+#           tags: ak0384221/yourstore-frontend-public:${{ github.ref_name }}${{ matrix.tag_suffix }}
 
-  deploy-to-render:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    environment: render
-    steps:
-      - name: deploy to render
-        run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+#   deploy-to-render:
+#     needs: build
+#     runs-on: ubuntu-latest
+#     if: github.ref == 'refs/heads/main'
+#     environment: render
+#     steps:
+#       - name: deploy to render
+#         run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
